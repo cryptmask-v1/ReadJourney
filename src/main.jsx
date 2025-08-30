@@ -38,10 +38,10 @@ createRoot(document.getElementById("root")).render(
 
 // development helper (geçici): tarayıcı konsolundan store'a eriş
 
-window.store = store;
-window.loginUser = loginUser;
-window.registerUser = registerUser;
-window.logoutUser = logoutUser;
-window.persistor = persistor;
+// window.store = store;
+// window.loginUser = loginUser;
+// window.registerUser = registerUser;
+// window.logoutUser = logoutUser;
+// window.persistor = persistor;
 
 // Bu satırı production'a geçmeden önce sil.
