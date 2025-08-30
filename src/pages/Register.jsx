@@ -1,7 +1,7 @@
 import React from "react";
 
-const Welcome = () => {
+const Register = () => {
   return <div></div>;
 };
 
-export default Welcome;
+export default Register;
