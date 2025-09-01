@@ -7,7 +7,9 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import logo from "../../assets/logo.png";
-import hero from "../../assets/loginregister.png";
+import mobileLogo from "../../assets/mobileLogo.png";
+import hero from "../../assets/hero.png";
+import heroMobile from "../../assets/mobileHero.png";
 
 const LoginRegister = () => {
   const dispatch = useDispatch();
@@ -90,7 +92,12 @@ const LoginRegister = () => {
         <>
           <div className={styles.leftSection}>
             <div className={styles.logoContainer}>
-              <img src={logo} alt="Logo" />
+              <img className={styles.desktopLogo} src={logo} alt="Logo" />
+              <img
+                className={styles.mobileLogo}
+                src={mobileLogo}
+                alt="Mobile Logo"
+              />
             </div>
             <h2 className={styles.registerLoginTitle}>
               Expend your mind, reading <span>a book</span>
@@ -196,7 +203,12 @@ const LoginRegister = () => {
             </div>
           </div>
           <div className={styles.rightSection}>
-            <img src={hero} alt="Hero" />
+            <img className={styles.heroImage} src={hero} alt="Hero" />
+            <img
+              className={styles.heroMobileImage}
+              src={heroMobile}
+              alt="Hero Mobile"
+            />
           </div>
         </>
       </div>
