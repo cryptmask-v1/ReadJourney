@@ -43,19 +43,18 @@ export const loginUser = createAsyncThunk(
 );
 
 // logoutUser stays (client cleanup in finally is fine)
-export const logoutUser = createAsyncThunk(
-  "auth/logout",
-  async (_, { rejectWithValue }) => {
+export const logoutUser = createAsyncThunk("auth/logout", async () => {
+  try {
+    await logout();
+  } catch (error) {
+    console.warn("logout API error (ignored):", error?.response ?? error);
+  } finally {
+    delete axios.defaults.headers.common["Authorization"];
     try {
-      await logout();
+      localStorage.removeItem("persist:root");
     } catch (error) {
-      console.warn("logout API error (ignored):", error?.response ?? error);
-    } finally {
-      delete axios.defaults.headers.common["Authorization"];
-      try {
-        localStorage.removeItem("persist:root");
-      } catch (e) {}
+      error.response?.data || { message: error.message };
     }
-    return;
   }
-);
+  return;
+});

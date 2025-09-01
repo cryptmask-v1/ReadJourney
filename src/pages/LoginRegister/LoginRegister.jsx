@@ -183,19 +183,18 @@ const LoginRegister = () => {
                         onChange={handleChange}
                         value={values.password}
                       />
-                      <button
-                        className={styles.loginBtn}
-                        type="submit"
-                        disabled={isSubmitting}
-                      >
-                        Login
-                      </button>
-                      <Link
-                        style={{ textDecoration: "none", color: "white" }}
-                        to="/register"
-                      >
-                        Don't have an account?
-                      </Link>
+                      <div className={styles.btnSection}>
+                        <button
+                          className={styles.registerBtn}
+                          type="submit"
+                          disabled={isSubmitting}
+                        >
+                          Login
+                        </button>
+                        <Link className={styles.btnSectionLink} to="/register">
+                          Don't have an account?
+                        </Link>
+                      </div>
                     </form>
                   )}
                 </Formik>
