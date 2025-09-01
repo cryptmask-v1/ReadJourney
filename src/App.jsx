@@ -7,8 +7,19 @@ import Recommended from "./pages/Recommended/Recommended";
 import ProtectedRoute from "./services/ProtectedRoute";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import axios from "axios";
 
 function App() {
+  // global token set
+  const token = useSelector((state) => state.auth.token);
+  useEffect(() => {
+    if (token) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    }
+  }, [token]);
+
   return (
     <>
       <Routes>
