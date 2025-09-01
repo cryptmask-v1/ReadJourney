@@ -1,10 +1,11 @@
 .container {
-  width: 1280px;
-  height: 800px;
-  background: #141414;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 1280px;
+  height: 800px;
+  margin: 0 auto;
+  font-family: var(--font-family);
 }
 
 .sections {
@@ -19,9 +20,90 @@
   width: 600px;
   height: 736px;
   background: #1f1f1f;
+  padding: 40px 64px;
+}
+.logoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+.logoContainer img {
+  width: 182px;
+  height: 17px;
+}
+.registerLoginTitle {
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 94%;
+  letter-spacing: 0.02em;
+  color: #f9f9f9;
+  text-align: left;
+  margin-top: 107px;
+  margin-bottom: 40px;
 }
 
+.registerLoginTitle span {
+  color: rgba(227, 227, 227, 0.5);
+}
+
+.formSection {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.formSection input {
+  border-radius: 12px;
+  padding: 16px 304px 16px 14px;
+  width: 472px;
+  height: 50px;
+  background: #262626;
+}
+.btnSection {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 20px;
+
+  /* margin-top: 82px; */
+  /* margin-bottom: 40px; */
+}
+.btnSectionLink {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: #686868;
+}
+
+.registerBtn {
+  border-radius: 30px;
+  padding: 16px 54px;
+  width: 225px;
+  height: 52px;
+  background: #f9f9f9;
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0.02em;
+  color: #1f1f1f;
+}
+
+.loginBtn {
+  border-radius: 30px;
+  padding: 16px 54px;
+  width: 166px;
+  height: 52px;
+  background: #f9f9f9;
+}
 .rightSection {
+  display: flex;
+  align-items: end;
+  justify-content: center;
   width: 600px;
   height: 736px;
   background: #1f1f1f;
