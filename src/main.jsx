@@ -6,11 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./store";
-import {
-  loginUser,
-  logoutUser,
-  registerUser,
-} from "./store/Auth/authService.js";
+
 import axios from "axios";
 
 createRoot(document.getElementById("root")).render(
@@ -37,11 +33,5 @@ createRoot(document.getElementById("root")).render(
 );
 
 // development helper (geçici): tarayıcı konsolundan store'a eriş
-
-// window.store = store;
-// window.loginUser = loginUser;
-// window.registerUser = registerUser;
-// window.logoutUser = logoutUser;
-// window.persistor = persistor;
 
 // Bu satırı production'a geçmeden önce sil.

@@ -5,19 +5,24 @@ import Reading from "./pages/Reading/Reading";
 import { Route, Router, Routes } from "react-router-dom";
 import Recommended from "./pages/Recommended/Recommended";
 import ProtectedRoute from "./services/ProtectedRoute";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<LoginRegister />} />
-      <Route path="/login" element={<LoginRegister />} />
-      <Route path="/register" element={<LoginRegister />} />
-      <Route element={<ProtectedRoute />}>
-        <Route path="/recommended" element={<Recommended />} />
-        <Route path="/library" element={<Library />} />
-        <Route path="/reading" element={<Reading />} />
-      </Route>
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<LoginRegister />} />
+        <Route path="/login" element={<LoginRegister />} />
+        <Route path="/register" element={<LoginRegister />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/recommended" element={<Recommended />} />
+          <Route path="/library" element={<Library />} />
+          <Route path="/reading" element={<Reading />} />
+        </Route>
+      </Routes>
+      <ToastContainer />
+    </>
   );
 }
 
