@@ -14,9 +14,18 @@ import axios from "axios";
 
 const API_URL = "https://readjourney.b.goit.study/api";
 
-export async function getRecommendedBooks() {
+export async function getRecommendedBooks(title, author, page = 1, limit = 10) {
+  const params = { page, limit };
+  if (title) {
+    params.title = title;
+  }
+  if (author) {
+    params.author = author;
+  }
   try {
-    const response = await axios.get(`${API_URL}/books/recommend`);
+    const response = await axios.get(`${API_URL}/books/recommend`, {
+      params,
+    });
     return response.data;
   } catch (error) {
     throw error.response?.data || { message: error.message };
@@ -24,7 +33,7 @@ export async function getRecommendedBooks() {
 }
 
 /**
- * PARAMS {
+ * request body {
  *   title: string,
  *   author: string,
  *   totalPages: string,
@@ -64,9 +73,15 @@ export async function deleteBookFromUser(id) {
   }
 }
 
-export async function getUserBooks() {
+export async function getUserBooks(status = "") {
   try {
-    const response = await axios.get(`${API_URL}/books/own`);
+    const params = {};
+    if (status) {
+      params.status = status;
+    }
+    const response = await axios.get(`${API_URL}/books/own`, {
+      params,
+    });
     return response.data;
   } catch (error) {
     throw error.response?.data || { message: error.message };
