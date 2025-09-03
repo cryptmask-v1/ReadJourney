@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "./Header.module.css";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/Logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCurrentUser } from "../../store/Users/userService.js";
 import { Link, useLocation, useNavigate } from "react-router-dom";
