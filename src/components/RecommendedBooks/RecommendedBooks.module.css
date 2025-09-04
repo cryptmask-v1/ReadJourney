@@ -9,6 +9,12 @@
   background: #1f1f1f;
   margin-top: 16px;
 }
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
 .title {
   display: flex;
   font-weight: 700;
@@ -17,9 +23,34 @@
   letter-spacing: 0.02em;
   color: #f9f9f9;
   margin: 0px;
-  margin-bottom: 28px;
 }
-
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.prevNextBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: 1px solid rgba(249, 249, 249, 0.2);
+  border-radius: 100%;
+  cursor: pointer;
+  font-size: 24px;
+  color: #f9f9f9;
+}
+.prevNextBtn:disabled {
+  border: 1px solid rgba(249, 249, 249, 0.2);
+  color: #686868;
+  cursor: initial;
+}
+.chevronIcon {
+  width: 8px;
+  height: 12px;
+}
 .bookList {
   display: grid;
   grid-template-columns: repeat(5, 1fr);

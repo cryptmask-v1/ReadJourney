@@ -18,7 +18,7 @@ import persistStore from "redux-persist/es/persistStore";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["auth"],
+  whitelist: ["auth", "books"],
 };
 const rootReducer = combineReducers({
   auth: authReducer,

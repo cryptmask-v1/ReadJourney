@@ -2,44 +2,62 @@ import React, { useEffect, useState } from "react";
 import styles from "./RecommendedBooks.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRecommendedBooks } from "../../store/Books/bookService";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
 const RecommendedBooks = () => {
   const dispatch = useDispatch();
-  const [pagination, setPagination] = useState({ page: 1, limit: 10 });
+
+  const [currentPage, setCurrentPage] = useState({ page: 1, limit: 10 });
+
+  const recommendedBooks = useSelector((state) => state.books.recommendedBooks);
 
   useEffect(() => {
-    dispatch(
-      fetchRecommendedBooks({
-        title: "",
-        author: "",
-        page: pagination.page,
-        limit: 10,
-      })
-    );
-  }, [dispatch, pagination]);
-  const recommendedBooks = useSelector(
-    (state) => state.books.recommendedBooks.results
-  );
+    if (
+      !recommendedBooks.results ||
+      recommendedBooks.page !== currentPage.page
+    ) {
+      dispatch(
+        fetchRecommendedBooks({
+          title: "",
+          author: "",
+          page: currentPage.page,
+          limit: currentPage.limit,
+        })
+      );
+    }
+  }, [dispatch, currentPage]);
 
   return (
     <div className={styles.container}>
-      {/* Book list would be rendered here */}
       <div>
-        <div>
+        <div className={styles.header}>
           <h2 className={styles.title}>Recommended</h2>
-          {/* <button
-            onClick={() =>
-              setPagination({ ...pagination, page: pagination.page + 1 })
-            }
-          >
-            Next
-          </button> */}
+          <div className={styles.pagination}>
+            <button
+              disabled={currentPage.page <= 1}
+              className={styles.prevNextBtn}
+              onClick={() =>
+                setCurrentPage({ ...currentPage, page: currentPage.page - 1 })
+              }
+            >
+              <FaChevronLeft className={styles.chevronIcon} />
+            </button>
+            <button
+              className={styles.prevNextBtn}
+              onClick={() =>
+                setCurrentPage({ ...currentPage, page: currentPage.page + 1 })
+              }
+              disabled={currentPage.page >= recommendedBooks.totalPages}
+            >
+              <FaChevronRight className={styles.chevronIcon} />
+            </button>
+          </div>
         </div>
 
         <div className={styles.bookListContainer}>
           <ul className={styles.bookList}>
-            {recommendedBooks && recommendedBooks.length > 0 ? (
-              recommendedBooks.map((book) => (
+            {recommendedBooks.results && recommendedBooks.results.length > 0 ? (
+              recommendedBooks.results.map((book) => (
                 <li key={book._id} className={styles.bookItem}>
                   <img
                     className={styles.bookImage}
