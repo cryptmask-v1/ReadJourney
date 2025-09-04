@@ -1,11 +1,19 @@
 import React from "react";
 import Header from "../../components/Header/Header.jsx";
+import RecommendedBooks from "../../components/RecommendedBooks/RecommendedBooks.jsx";
+import styles from "./Recommended.module.css";
+import Filter from "../../components/Filter/Filter.jsx";
 
 const Recommended = () => {
   return (
-    <div>
-      <Header />
-      <p style={{ color: "white" }}>Recommended Books</p>
+    <div className={styles.container}>
+      <div>
+        <Header />
+      </div>
+      <div className={styles.recommendationContainer}>
+        <Filter />
+        <RecommendedBooks />
+      </div>
     </div>
   );
 };

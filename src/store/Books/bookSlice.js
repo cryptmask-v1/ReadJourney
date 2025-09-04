@@ -49,6 +49,8 @@ const bookSlice = createSlice({
       // Add book to library
       .addCase(addBookToLibrary.fulfilled, (state, action) => {
         state.userBooks.push(action.payload);
+        state.loading = false;
+        state.error = null;
       })
       .addCase(addBookToLibrary.pending, (state) => {
         state.loading = true;
@@ -61,6 +63,8 @@ const bookSlice = createSlice({
       // Add book from recommended to library
       .addCase(addBookFromRecommendedToLibrary.fulfilled, (state, action) => {
         state.userBooks.push(action.payload);
+        state.loading = false;
+        state.error = null;
       })
       .addCase(addBookFromRecommendedToLibrary.pending, (state) => {
         state.loading = true;
@@ -75,6 +79,8 @@ const bookSlice = createSlice({
         state.userBooks = state.userBooks.filter(
           (book) => book.id !== action.payload.id
         );
+        state.loading = false;
+        state.error = null;
       })
       .addCase(deleteBookFromLibrary.pending, (state) => {
         state.loading = true;
@@ -87,6 +93,8 @@ const bookSlice = createSlice({
       // Get current user books
       .addCase(getCurrentUserBooks.fulfilled, (state, action) => {
         state.userBooks = action.payload;
+        state.loading = false;
+        state.error = null;
       })
       .addCase(getCurrentUserBooks.pending, (state) => {
         state.loading = true;
@@ -104,6 +112,8 @@ const bookSlice = createSlice({
         if (book) {
           book.status = "reading";
         }
+        state.loading = false;
+        state.error = null;
       })
       .addCase(startReading.pending, (state) => {
         state.loading = true;
@@ -121,6 +131,8 @@ const bookSlice = createSlice({
         if (book) {
           book.status = "finished";
         }
+        state.loading = false;
+        state.error = null;
       })
       .addCase(finishReading.pending, (state) => {
         state.loading = true;
@@ -138,6 +150,8 @@ const bookSlice = createSlice({
         if (book) {
           book.status = "not started";
         }
+        state.loading = false;
+        state.error = null;
       })
       .addCase(deleteReading.pending, (state) => {
         state.loading = true;
@@ -150,6 +164,8 @@ const bookSlice = createSlice({
       // Fetch book info
       .addCase(fetchBookInfo.fulfilled, (state, action) => {
         state.currentBook = action.payload;
+        state.loading = false;
+        state.error = null;
       })
       .addCase(fetchBookInfo.pending, (state) => {
         state.loading = true;
