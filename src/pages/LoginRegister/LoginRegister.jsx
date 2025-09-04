@@ -6,7 +6,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import * as yup from "yup";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/Logo.png";
 import mobileLogo from "../../assets/mobileLogo.png";
 import hero from "../../assets/hero.png";
 import heroMobile from "../../assets/mobileHero.png";
