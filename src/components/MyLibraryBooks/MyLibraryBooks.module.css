@@ -1,0 +1,129 @@
+.container {
+  border-radius: 30px;
+  width: 847px;
+  height: 651px;
+  background: #1f1f1f;
+  margin-top: 16px;
+  padding: 40px;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.content {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px; /* Header ile box arası boşluk */
+}
+
+.title {
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 114%;
+  letter-spacing: 0.02em;
+  color: #f9f9f9;
+  margin: 0;
+}
+
+.form {
+  border: 1px solid #3e3e3e;
+  border-radius: 12px;
+  padding: 14px;
+  width: 153px;
+  height: 46px;
+  position: relative;
+}
+
+.field {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  color: #f9f9f9;
+  width: 100%;
+  cursor: pointer;
+  padding-right: 20px;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.form::after {
+  content: "";
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%) rotate(135deg);
+  width: 6px;
+  height: 6px;
+  border-top: 1.5px solid #f9f9f9;
+  border-right: 1.5px solid #f9f9f9;
+  pointer-events: none;
+}
+
+.field option {
+  background-color: #3e3e3e;
+  color: #f9f9f9;
+  padding: 12px 14px;
+  border: none;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+}
+
+.field option:checked,
+.field option[selected] {
+  background-color: #3e3e3e;
+  color: #f9f9f9;
+  font-weight: 700;
+}
+
+.field option:hover {
+  background-color: #4a4a4a;
+  color: #f9f9f9;
+}
+
+.field option:first-child {
+  font-weight: 700;
+}
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 274px;
+  height: 186px;
+  margin: auto; /* Box'ı ortala */
+}
+.image {
+  width: 70px;
+  height: 70px;
+}
+.imageContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 130px;
+  height: 130px;
+  border-radius: 100%;
+  background: #262626;
+}
+
+.text {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: #f9f9f9;
+}
+
+.text span {
+  color: #686868;
+}

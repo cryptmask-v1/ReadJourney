@@ -1,0 +1,106 @@
+.container {
+  border-radius: 30px;
+  width: 353px;
+  height: 651px;
+  background: #1f1f1f;
+  margin-top: 16px;
+  padding: 40px 20px 20px 20px;
+}
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0px 0px 8px 14px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  color: #f9f9f9;
+}
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 16px;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+.inputContainer {
+  display: flex;
+  align-items: center;
+  background: #262626;
+  border-radius: 12px;
+  padding: 16px 0px 16px 12px;
+  width: 313px;
+  height: 50px;
+}
+.subtitle {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  color: #686868;
+}
+
+.field {
+  background: #262626;
+  background: transparent;
+  padding-left: 10px;
+}
+.inputContainer input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  flex: 1; /* kalan alanı kaplar */
+}
+.field::placeholder {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  color: #f9f9f9;
+}
+.button {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 112%;
+  letter-spacing: 0.02em;
+  color: #f9f9f9;
+  border: 1px solid rgba(249, 249, 249, 0.2);
+  border-radius: 30px;
+  width: 122px;
+  height: 42px;
+  background: transparent;
+  cursor: pointer;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.link {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: #686868;
+}
+.bottomSection {
+  border-radius: 12px;
+  width: 313px;
+  height: 259px;
+  background: #262626;
+  margin-top: 78px;
+}
+.bottomTitle {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  color: #e3e3e3;
+}

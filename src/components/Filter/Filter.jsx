@@ -60,7 +60,7 @@ const Filter = () => {
           </div>
         </div>
         <div className={styles.linkContainer}>
-          <Link className={styles.link} to="/Library">
+          <Link className={styles.link} to="/library">
             My Library
           </Link>
         </div>
