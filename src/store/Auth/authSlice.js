@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser, logoutUser, registerUser } from "./authService";
+import {
+  loginUser,
+  logoutUser,
+  registerUser,
+  refreshUser,
+} from "./authService";
 import axios from "axios";
 
 const authSlice = createSlice({
@@ -74,6 +79,24 @@ const authSlice = createSlice({
       .addCase(logoutUser.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
+      })
+      //refresh user
+      .addCase(refreshUser.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(refreshUser.rejected, (state, action) => {
+        state.user = null;
+        state.token = null;
+        state.isLoading = false;
+        state.error = action.payload;
+        delete axios.defaults.headers.common["Authorization"];
+      })
+      .addCase(refreshUser.pending, (state) => {
+        state.error = null;
+        state.isLoading = true;
       });
   },
 });

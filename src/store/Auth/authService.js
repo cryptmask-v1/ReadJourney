@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { login, logout, register } from "./authApi";
+import { login, logout, refresh, register } from "./authApi";
 import axios from "axios";
 
 export const registerUser = createAsyncThunk(
@@ -58,3 +58,25 @@ export const logoutUser = createAsyncThunk("auth/logout", async () => {
   }
   return;
 });
+
+export const refreshUser = createAsyncThunk(
+  "auth/refresh",
+  async (_, { rejectWithValue, getState }) => {
+    try {
+      const state = getState();
+      const token = state.auth.token;
+      const response = await refresh(token);
+      // set global header right after successful refresh
+      if (response?.token) {
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${response.token}`;
+      }
+      return response;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data || { message: error.message }
+      );
+    }
+  }
+);

@@ -3,11 +3,15 @@ import styles from "./RecommendedBooks.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRecommendedBooks } from "../../store/Books/bookService";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+import Modal from "../Modal/Modal";
 
 const RecommendedBooks = () => {
   const dispatch = useDispatch();
 
   const [currentPage, setCurrentPage] = useState({ page: 1, limit: 10 });
+
+  const [selectedBook, setSelectedBook] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const recommendedBooks = useSelector((state) => state.books.recommendedBooks);
 
@@ -26,6 +30,25 @@ const RecommendedBooks = () => {
       );
     }
   }, [dispatch, currentPage]);
+
+  // ✅ Book click handler
+  const handleBookClick = (book) => {
+    setSelectedBook(book);
+    setIsModalOpen(true);
+  };
+
+  // ✅ Modal close handler
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedBook(null);
+  };
+
+  // ✅ Add to library handler (şimdilik console.log)
+  const handleAddToLibrary = (book) => {
+    console.log("Adding to library:", book);
+    setIsModalOpen(false);
+    // TODO: API call eklenecek
+  };
 
   return (
     <div className={styles.container}>
@@ -63,6 +86,8 @@ const RecommendedBooks = () => {
                     className={styles.bookImage}
                     src={book.imageUrl}
                     alt={book.title}
+                    onClick={() => handleBookClick(book)} // ✅ Click handler ekle
+                    style={{ cursor: "pointer" }} // ✅ Cursor pointer
                   />
                   <div className={styles.bookInfo}>
                     <h3 className={styles.bookTitle}>{book.title}</h3>
@@ -78,6 +103,12 @@ const RecommendedBooks = () => {
           </ul>
         </div>
       </div>
+      <Modal
+        book={selectedBook}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onAddToLibrary={handleAddToLibrary}
+      />
     </div>
   );
 };

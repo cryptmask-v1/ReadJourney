@@ -27,3 +27,16 @@ export async function logout() {
     throw error.response?.data || { message: error.message };
   }
 }
+
+export async function refresh(token) {
+  try {
+    const response = await axios.get(`${API_URL}/users/current/refresh`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { message: error.message };
+  }
+}

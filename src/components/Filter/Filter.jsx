@@ -3,8 +3,22 @@ import styles from "./Filter.module.css";
 import { Formik, Form, Field } from "formik";
 import { Link } from "react-router-dom";
 import book from "../../assets/book.png";
+import { useDispatch } from "react-redux";
+import { fetchRecommendedBooks } from "../../store/Books/bookService";
 
 const Filter = () => {
+  const dispatch = useDispatch();
+
+  const handleSubmit = (values) => {
+    dispatch(
+      fetchRecommendedBooks({
+        title: values.book,
+        author: values.author,
+        page: 1,
+        limit: 10,
+      })
+    );
+  };
   return (
     <div className={styles.container}>
       <div>
@@ -12,7 +26,7 @@ const Filter = () => {
         <Formik
           initialValues={{ book: "", author: "" }}
           onSubmit={(values) => {
-            console.log(values);
+            handleSubmit(values);
           }}
         >
           {() => (

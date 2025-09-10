@@ -1,0 +1,80 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  border: 1px solid rgba(104, 104, 104, 0.2);
+  border-radius: 12px;
+  width: 500px;
+  height: 483px;
+  background: #1f1f1f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.modalImage {
+  width: 140px;
+  height: 213px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.modalTitle {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 120%;
+  letter-spacing: -0.02em;
+  color: #f9f9f9;
+  margin: 0 0 2px 0;
+  text-align: center;
+}
+
+.modalAuthor {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  color: #686868;
+  margin: 0 0 4px 0;
+}
+
+.modalPages {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  color: #686868;
+  margin: 0 0 20px 0;
+}
+
+.addButton {
+  border: 1px solid rgba(249, 249, 249, 0.2);
+  border-radius: 30px;
+  padding: 12px 28px;
+  background: transparent;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: 0.02em;
+  color: #f9f9f9;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.addButton:hover {
+  background: rgba(249, 249, 249, 0.1);
+  border-color: #4f92f7;
+}

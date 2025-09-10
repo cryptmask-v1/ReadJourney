@@ -1,13 +1,14 @@
 .container {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column; /* ✅ Column layout */
   font-family: var(--font-family);
   border-radius: 30px;
   width: 847px;
   height: 651px;
   background: #1f1f1f;
   margin-top: 16px;
+  padding: 40px; /* ✅ Padding ekle */
+  box-sizing: border-box;
 }
 .header {
   display: flex;
@@ -51,6 +52,9 @@
   width: 8px;
   height: 12px;
 }
+.bookListContainer {
+  flex: 1;
+}
 .bookList {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -58,6 +62,7 @@
   gap: 20px;
   padding: 0px;
   margin: 0px;
+  align-content: start;
 }
 .bookItem {
   width: 137px;

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCurrentUser } from "../../store/Users/userService.js";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logoutUser } from "../../store/Auth/authService";
-import { toast } from "react-toastify";
+import { notify } from "../Notify/Notify";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -20,20 +20,6 @@ const Header = () => {
       dispatch(fetchCurrentUser());
     }
   }, [token, user, dispatch]);
-
-  const notify = (message, type) => {
-    if (!message) return;
-    switch (type) {
-      case "success":
-        toast.success(message);
-        break;
-      case "error":
-        toast.error(message);
-        break;
-      default:
-        toast(message);
-    }
-  };
 
   const handleLogout = async () => {
     try {
