@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchRecommendedBooks } from "../../store/Books/bookService";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import Modal from "../Modal/Modal";
+import { notify } from "../Notify/Notify";
 
 const RecommendedBooks = () => {
   const dispatch = useDispatch();
@@ -31,23 +32,18 @@ const RecommendedBooks = () => {
     }
   }, [dispatch, currentPage]);
 
-  // ✅ Book click handler
   const handleBookClick = (book) => {
     setSelectedBook(book);
     setIsModalOpen(true);
   };
 
-  // ✅ Modal close handler
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedBook(null);
   };
-
-  // ✅ Add to library handler (şimdilik console.log)
   const handleAddToLibrary = (book) => {
-    console.log("Adding to library:", book);
+    notify(`Book added to library: ${book.title}`, "success");
     setIsModalOpen(false);
-    // TODO: API call eklenecek
   };
 
   return (
@@ -86,8 +82,8 @@ const RecommendedBooks = () => {
                     className={styles.bookImage}
                     src={book.imageUrl}
                     alt={book.title}
-                    onClick={() => handleBookClick(book)} // ✅ Click handler ekle
-                    style={{ cursor: "pointer" }} // ✅ Cursor pointer
+                    onClick={() => handleBookClick(book)}
+                    style={{ cursor: "pointer" }}
                   />
                   <div className={styles.bookInfo}>
                     <h3 className={styles.bookTitle}>{book.title}</h3>
@@ -104,6 +100,7 @@ const RecommendedBooks = () => {
         </div>
       </div>
       <Modal
+        variant={"recommended"}
         book={selectedBook}
         isOpen={isModalOpen}
         onClose={handleCloseModal}

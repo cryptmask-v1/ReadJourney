@@ -30,6 +30,7 @@
   height: 213px;
   border-radius: 8px;
   margin-bottom: 16px;
+  object-fit: cover;
 }
 
 .modalTitle {

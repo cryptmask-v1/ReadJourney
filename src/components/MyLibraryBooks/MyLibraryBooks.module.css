@@ -127,3 +127,101 @@
 .text span {
   color: #686868;
 }
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+.title {
+  display: flex;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 114%;
+  letter-spacing: 0.02em;
+  color: #f9f9f9;
+  margin: 0px;
+}
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.prevNextBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: 1px solid rgba(249, 249, 249, 0.2);
+  border-radius: 100%;
+  cursor: pointer;
+  font-size: 24px;
+  color: #f9f9f9;
+}
+.prevNextBtn:disabled {
+  border: 1px solid rgba(249, 249, 249, 0.2);
+  color: #686868;
+  cursor: initial;
+}
+.chevronIcon {
+  width: 8px;
+  height: 12px;
+}
+.bookListContainer {
+  flex: 1;
+}
+.bookList {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  list-style: none;
+  gap: 20px;
+  padding: 0px;
+  margin: 0px;
+  align-content: start;
+}
+.bookItem {
+  width: 137px;
+  height: 248px;
+}
+.bookImage {
+  border-radius: 8px;
+  width: 137px;
+  height: 208px;
+}
+.bookInfo {
+  display: flex;
+  flex-direction: row;
+}
+.bookText {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 89px;
+  height: 32px;
+}
+.deleteIcon {
+  cursor: pointer;
+  margin-left: 20px;
+}
+.bookTitle {
+  margin: 0px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  color: #f9f9f9;
+}
+.bookAuthor {
+  margin: 0px;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 120%;
+  letter-spacing: -0.02em;
+  color: #686868;
+}

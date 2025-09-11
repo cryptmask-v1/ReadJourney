@@ -2,17 +2,28 @@ import React from "react";
 import { Formik, Form, Field } from "formik";
 import { Link } from "react-router-dom";
 import styles from "./MyLibraryFilter.module.css";
+import { useDispatch } from "react-redux";
+import { addBookToLibrary } from "../../store/Books/bookService";
 
 const MyLibraryFilter = () => {
+  const dispatch = useDispatch();
+
+  const handleAddBook = (values) => {
+    dispatch(
+      addBookToLibrary({
+        title: values.book,
+        author: values.author,
+        totalPages: values.totalPages,
+      })
+    );
+  };
   return (
     <div className={styles.container}>
       <div>
         <h2 className={styles.title}>Create your library:</h2>
         <Formik
-          initialValues={{ book: "", author: "", pages: "" }}
-          onSubmit={(values) => {
-            console.log(values);
-          }}
+          initialValues={{ book: "", author: "", totalPages: "" }}
+          onSubmit={(values) => handleAddBook(values)}
         >
           {() => (
             <Form className={styles.form}>
@@ -36,7 +47,7 @@ const MyLibraryFilter = () => {
                 <span className={styles.subtitle}>Number of pages:</span>
                 <Field
                   className={styles.field}
-                  name="pages"
+                  name="totalPages"
                   placeholder="Enter text"
                 />
               </div>
