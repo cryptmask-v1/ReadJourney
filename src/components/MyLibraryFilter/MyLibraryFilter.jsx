@@ -1,12 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { Link } from "react-router-dom";
 import styles from "./MyLibraryFilter.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addBookToLibrary } from "../../store/Books/bookService";
+import { GoArrowRight } from "react-icons/go";
+import Modal from "../Modal/Modal";
 
 const MyLibraryFilter = () => {
   const dispatch = useDispatch();
+  const recommendedBooks = useSelector(
+    (state) => state.books.recommendedBooks.results
+  );
+  const [selectedBook, setSelectedBook] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [randomBooks, setRandomBooks] = useState([]);
+
+  function getRandomBooks(books, count = 3) {
+    if (!Array.isArray(books) || books.length === 0) return [];
+    const shuffled = [...books].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+  }
+
+  useEffect(() => {
+    if (recommendedBooks && recommendedBooks.length > 0) {
+      setRandomBooks(getRandomBooks(recommendedBooks, 3));
+    }
+  }, [recommendedBooks]);
 
   const handleAddBook = (values) => {
     dispatch(
@@ -17,6 +37,18 @@ const MyLibraryFilter = () => {
       })
     );
   };
+  const handleBookClick = (book) => {
+    setSelectedBook(book);
+    setIsModalOpen(true);
+  };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedBook(null);
+  };
+  const handleAddToLibrary = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className={styles.container}>
       <div>
@@ -61,22 +93,40 @@ const MyLibraryFilter = () => {
       </div>
 
       <div className={styles.bottomSection}>
-        <h3 className={styles.bottomTitle}>Recommended Books</h3>
+        <h2 className={styles.bottomTitle}>Recommended books</h2>
         <ul className={styles.bottomList}>
-          <li className={styles.bottomText}>
-            <span>The Great Gatsby</span> by F. Scott Fitzgerald
-          </li>
-          <li className={styles.bottomText}>
-            <span>To Kill a Mockingbird</span> by Harper Lee
-          </li>
-          <li className={styles.bottomText}>
-            <span>1984</span> by George Orwell
-          </li>
+          {randomBooks.map((book) => (
+            <li
+              className={styles.bottomItem}
+              key={book._id}
+              onClick={() => handleBookClick(book)}
+            >
+              <img
+                className={styles.bottomImage}
+                src={book.imageUrl}
+                alt={book.title}
+              />
+              <div className={styles.bookInfo}>
+                <p className={styles.bookTitle}>{book.title}</p>
+                <p className={styles.bookAuthor}>{book.author}</p>
+              </div>
+            </li>
+          ))}
         </ul>
-        <Link to="/" className={styles.link}>
-          Home
-        </Link>
+        <div className={styles.linkContainer}>
+          <Link to="/" className={styles.link}>
+            Home
+          </Link>
+          <GoArrowRight className={styles.arrowIcon} />
+        </div>
       </div>
+      <Modal
+        variant={"recommended"}
+        book={selectedBook}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onAddToLibrary={handleAddToLibrary}
+      />
     </div>
   );
 };

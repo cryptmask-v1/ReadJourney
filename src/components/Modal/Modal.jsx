@@ -3,8 +3,10 @@ import styles from "./Modal.module.css";
 import { useDispatch } from "react-redux";
 import { addBookFromRecommendedToLibrary } from "../../store/Books/bookService";
 import { notify } from "../Notify/Notify";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import bookskeleton from "../../assets/bookskeletonlarge.png";
+import goodjob from "../../assets/goodjob.png";
+import { IoClose } from "react-icons/io5";
 
 const Modal = ({ book, isOpen, onClose, variant }) => {
   const dispatch = useDispatch();
@@ -43,6 +45,10 @@ const Modal = ({ book, isOpen, onClose, variant }) => {
           className={styles.modalContent}
           onClick={(e) => e.stopPropagation()}
         >
+          <div className={styles.closeBtn}>
+            <IoClose className={styles.closeIcon} size={24} onClick={onClose} />
+          </div>
+
           <img
             src={book?.imageUrl}
             alt={book?.title}
@@ -63,6 +69,10 @@ const Modal = ({ book, isOpen, onClose, variant }) => {
           className={styles.modalContent}
           onClick={(e) => e.stopPropagation()}
         >
+          <div className={styles.closeBtn}>
+            <IoClose className={styles.closeIcon} size={24} onClick={onClose} />
+          </div>
+
           {book?.imageUrl ? (
             <img
               src={book?.imageUrl}
@@ -82,6 +92,26 @@ const Modal = ({ book, isOpen, onClose, variant }) => {
 
           <button className={styles.addButton} onClick={handleStartReading}>
             Start Reading
+          </button>
+        </div>
+      )}
+      {variant === "goodjob" && (
+        <div
+          className={styles.modalContent}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className={styles.closeBtn}>
+            <IoClose className={styles.closeIcon} size={24} onClick={onClose} />
+          </div>
+
+          <img src={goodjob} alt="Good Job!" />
+          <h2 className={styles.gjTitle}>Good Job!</h2>
+          <p className={styles.gjText}>
+            Your book is now in <span>the library!</span> The joy knows no
+            bounds and now you can start your training
+          </p>
+          <button className={styles.addButton} onClick={onClose}>
+            Close
           </button>
         </div>
       )}

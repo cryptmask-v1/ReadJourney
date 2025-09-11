@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchRecommendedBooks } from "../../store/Books/bookService";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import Modal from "../Modal/Modal";
-import { notify } from "../Notify/Notify";
 
 const RecommendedBooks = () => {
   const dispatch = useDispatch();
@@ -41,8 +40,7 @@ const RecommendedBooks = () => {
     setIsModalOpen(false);
     setSelectedBook(null);
   };
-  const handleAddToLibrary = (book) => {
-    notify(`Book added to library: ${book.title}`, "success");
+  const handleAddToLibrary = () => {
     setIsModalOpen(false);
   };
 

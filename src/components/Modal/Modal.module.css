@@ -12,6 +12,7 @@
 }
 
 .modalContent {
+  position: relative;
   border: 1px solid rgba(104, 104, 104, 0.2);
   border-radius: 12px;
   width: 500px;
@@ -23,6 +24,15 @@
   justify-content: center;
   padding: 40px;
   box-sizing: border-box;
+}
+.closeBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #f9f9f9;
 }
 
 .modalImage {
@@ -78,4 +88,37 @@
 .addButton:hover {
   background: rgba(249, 249, 249, 0.1);
   border-color: #4f92f7;
+}
+.gjModal {
+  border: 1px solid rgba(104, 104, 104, 0.2);
+  border-radius: 12px;
+  width: 342px;
+  height: 290px;
+  background: #1f1f1f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+  box-sizing: border-box;
+}
+.gjTitle {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: #f9f9f9;
+}
+.gjText {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: #686868;
+}
+
+.gjText span {
+  color: #f9f9f9;
 }
