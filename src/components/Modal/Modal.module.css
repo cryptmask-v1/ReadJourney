@@ -122,3 +122,10 @@
 .gjText span {
   color: #f9f9f9;
 }
+
+@media (max-width: 1023px) {
+  /* tablet için stiller */
+}
+@media (max-width: 767px) {
+  /* mobil için stiller */
+}
