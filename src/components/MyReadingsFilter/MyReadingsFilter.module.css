@@ -80,7 +80,7 @@
   flex-direction: column;
   margin-top: 40px;
 }
-.progressTitle {
+.diaryTitle {
   font-weight: 700;
   font-size: 20px;
   line-height: 100%;
@@ -89,7 +89,7 @@
   text-align: left;
   margin: 0;
 }
-.progressText {
+.diaryText {
   font-weight: 500;
   font-size: 14px;
   line-height: 129%;
@@ -109,4 +109,117 @@
   border-radius: 100%;
   background-color: #262626;
   margin-top: 60px;
+}
+.progressTitle {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  color: #f9f9f9;
+  text-align: left;
+}
+.progressList {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 14px;
+  border-radius: 12px;
+  width: 313px;
+  height: 373px;
+  background: #262626;
+  list-style: none;
+  padding: 0;
+}
+.dateGroup {
+  padding: 20px;
+}
+.dateText {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 112%;
+  letter-spacing: 0.02em;
+  color: #f9f9f9;
+  margin: 0;
+}
+.pagesText {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: #686868;
+}
+.dateHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: space-between;
+}
+.dateSection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dateIcon {
+}
+.entryList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 28px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.entryItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 250px;
+}
+.minutesSection {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: auto;
+  gap: 8px;
+  margin: 0;
+}
+.duration {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 117%;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: #686868;
+  margin: 0;
+}
+.progressIcon {
+}
+.percentage {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  color: #f9f9f9;
+  margin: 0;
+}
+.pagesSection {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 8px;
+  margin: 0;
+}
+.pages {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 117%;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: #686868;
+  width: 55px;
+  height: 28px;
+  margin: 0;
 }

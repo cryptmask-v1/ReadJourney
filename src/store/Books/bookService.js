@@ -86,7 +86,10 @@ export const startReading = createAsyncThunk(
   "books/startReading",
   async (params, { rejectWithValue }) => {
     try {
-      const response = await startReadingBook(params);
+      const response = await startReadingBook({
+        id: params.id,
+        page: params.page,
+      });
       return response;
     } catch (error) {
       return rejectWithValue(
@@ -100,7 +103,10 @@ export const finishReading = createAsyncThunk(
   "books/finishReading",
   async (params, { rejectWithValue }) => {
     try {
-      const response = await finishReadingBook(params);
+      const response = await finishReadingBook({
+        id: params.id,
+        page: params.page,
+      });
       return response;
     } catch (error) {
       return rejectWithValue(

@@ -15,7 +15,7 @@ const Reading = ({ book }) => {
     <>
       <Header />
       <div className={styles.container}>
-        <MyReadingsFilter />
+        <MyReadingsFilter book={bookData} />
         <div className={styles.readingContainer}>
           <h1 className={styles.readingTitle}>Reading Page</h1>
           <img

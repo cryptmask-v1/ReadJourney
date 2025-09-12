@@ -77,7 +77,7 @@ const bookSlice = createSlice({
       // Delete book from library
       .addCase(deleteBookFromLibrary.fulfilled, (state, action) => {
         state.userBooks = state.userBooks.filter(
-          (book) => book._id !== action.payload.id
+          (book) => book.id !== action.payload.id
         );
         state.loading = false;
         state.error = null;
