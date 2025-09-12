@@ -6,6 +6,7 @@
   margin-top: 16px;
   padding: 40px 20px 20px 20px;
 }
+
 .title {
   display: flex;
   align-items: center;
@@ -24,6 +25,7 @@
   justify-content: center;
   gap: 8px;
 }
+
 .inputContainer {
   display: flex;
   align-items: center;
@@ -33,6 +35,7 @@
   width: 313px;
   height: 50px;
 }
+
 .subtitle {
   font-weight: 500;
   font-size: 14px;
@@ -42,10 +45,10 @@
 }
 
 .field {
-  background: #262626;
   background: transparent;
   padding-left: 10px;
 }
+
 .inputContainer input {
   background: transparent;
   border: none;
@@ -53,6 +56,7 @@
   color: white;
   flex: 1; /* kalan alanı kaplar */
 }
+
 .field::placeholder {
   font-weight: 500;
   font-size: 14px;
@@ -60,6 +64,7 @@
   letter-spacing: -0.02em;
   color: #f9f9f9;
 }
+
 .button {
   font-weight: 700;
   font-size: 16px;
@@ -75,11 +80,13 @@
   margin-top: 10px;
   text-align: center;
 }
+
 .bottomSection {
   display: flex;
   flex-direction: column;
   margin-top: 40px;
 }
+
 .diaryTitle {
   font-weight: 700;
   font-size: 20px;
@@ -89,6 +96,7 @@
   text-align: left;
   margin: 0;
 }
+
 .diaryText {
   font-weight: 500;
   font-size: 14px;
@@ -99,6 +107,7 @@
   margin: 0;
   margin-top: 14px;
 }
+
 .starsContainer {
   display: flex;
   justify-content: center;
@@ -110,6 +119,7 @@
   background-color: #262626;
   margin-top: 60px;
 }
+
 .progressTitle {
   font-weight: 700;
   font-size: 20px;
@@ -117,7 +127,9 @@
   letter-spacing: -0.02em;
   color: #f9f9f9;
   text-align: left;
+  margin: 0;
 }
+
 .progressList {
   display: flex;
   flex-direction: column;
@@ -129,10 +141,48 @@
   background: #262626;
   list-style: none;
   padding: 0;
+  overflow-y: auto; /* ✅ Taşan öğeler için scroll */
+  max-height: 373px; /* ✅ Maksimum yükseklik */
 }
+
+/* ✅ İnce ve temaya uygun scrollbar */
+.progressList::-webkit-scrollbar {
+  width: 4px; /* İnce yap */
+}
+
+.progressList::-webkit-scrollbar-track {
+  background: #262626; /* Track arka planı */
+}
+
+.progressList::-webkit-scrollbar-thumb {
+  background: #686868; /* Thumb rengi */
+  border-radius: 2px;
+}
+
+.progressList::-webkit-scrollbar-thumb:hover {
+  background: #f9f9f9; /* Hover rengi */
+}
+
 .dateGroup {
   padding: 20px;
 }
+
+.dateHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.dateSection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dateIcon {
+}
+
 .dateText {
   font-weight: 700;
   font-size: 16px;
@@ -141,6 +191,7 @@
   color: #f9f9f9;
   margin: 0;
 }
+
 .pagesText {
   font-weight: 500;
   font-size: 14px;
@@ -149,19 +200,7 @@
   text-align: center;
   color: #686868;
 }
-.dateHeader {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  justify-content: space-between;
-}
-.dateSection {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.dateIcon {
-}
+
 .entryList {
   display: flex;
   flex-direction: column;
@@ -172,12 +211,14 @@
   padding: 0;
   margin: 0;
 }
+
 .entryItem {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 250px;
 }
+
 .minutesSection {
   display: flex;
   flex-direction: column;
@@ -186,6 +227,16 @@
   gap: 8px;
   margin: 0;
 }
+
+.percentage {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  color: #f9f9f9;
+  margin: 0;
+}
+
 .duration {
   font-weight: 500;
   font-size: 12px;
@@ -195,16 +246,7 @@
   color: #686868;
   margin: 0;
 }
-.progressIcon {
-}
-.percentage {
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 100%;
-  letter-spacing: -0.02em;
-  color: #f9f9f9;
-  margin: 0;
-}
+
 .pagesSection {
   display: flex;
   flex-direction: column;
@@ -212,6 +254,10 @@
   gap: 8px;
   margin: 0;
 }
+
+.progressIcon {
+}
+
 .pages {
   font-weight: 500;
   font-size: 12px;
@@ -222,4 +268,132 @@
   width: 55px;
   height: 28px;
   margin: 0;
+}
+
+.iconContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.icons {
+  display: flex;
+  gap: 8px;
+}
+
+.icon {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  transition: opacity 0.3s ease;
+}
+
+.icon.active {
+  opacity: 1;
+}
+
+.icon:not(.active) {
+  opacity: 0.5;
+}
+
+.icon:hover {
+  opacity: 1;
+}
+
+.otherView {
+  text-align: center;
+  padding: 20px;
+  background: #262626;
+  border-radius: 12px;
+}
+
+.statistics {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  background: #262626;
+  border-radius: 12px;
+  width: 313px;
+  height: 281px;
+}
+
+.statisticsText {
+  font-size: 14px;
+  color: #686868;
+  margin: 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.chartContainer {
+  position: relative; /* ✅ Relative position */
+  width: 190px;
+  height: 190px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.centerText {
+  position: absolute; /* ✅ Absolute position */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  color: #f9f9f9;
+}
+
+.progressInfo {
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  text-align: left;
+}
+
+.progressDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 8px;
+}
+
+.percentageText {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  color: #f9f9f9;
+  margin: 0;
+}
+
+.pagesReadText {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 117%;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: #686868;
+  margin: 0;
+}
+
+.sign {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  width: 14px;
+  height: 14px;
+  background: #30b94d;
+  margin-right: 10px;
 }

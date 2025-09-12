@@ -106,18 +106,19 @@ const bookSlice = createSlice({
       })
       // Start reading
       .addCase(startReading.fulfilled, (state, action) => {
-        const book = state.userBooks.find(
-          (book) => book.id === action.payload.id
-        );
-        if (book) {
-          book.status = "reading";
+        // API'den dönen yeni progress'i state'e ekle
+        if (state.currentBook && action.payload) {
+          // Yeni progress entry'sini ekle
+          state.currentBook.progress = [
+            ...(state.currentBook.progress || []),
+            action.payload.progress, // API'den dönen progress
+          ];
         }
         state.loading = false;
         state.error = null;
       })
       .addCase(startReading.pending, (state) => {
         state.loading = true;
-        state.error = null;
       })
       .addCase(startReading.rejected, (state, action) => {
         state.loading = false;
@@ -125,18 +126,19 @@ const bookSlice = createSlice({
       })
       // Finish reading
       .addCase(finishReading.fulfilled, (state, action) => {
-        const book = state.userBooks.find(
-          (book) => book.id === action.payload.id
-        );
-        if (book) {
-          book.status = "finished";
+        // API'den dönen yeni progress'i state'e ekle
+        if (state.currentBook && action.payload) {
+          // Yeni progress entry'sini ekle
+          state.currentBook.progress = [
+            ...(state.currentBook.progress || []),
+            action.payload.progress, // API'den dönen progress
+          ];
         }
         state.loading = false;
         state.error = null;
       })
       .addCase(finishReading.pending, (state) => {
         state.loading = true;
-        state.error = null;
       })
       .addCase(finishReading.rejected, (state, action) => {
         state.loading = false;

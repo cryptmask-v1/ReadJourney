@@ -13,11 +13,23 @@ import { useDispatch, useSelector } from "react-redux";
 import progress from "../../assets/progress.png";
 import activedate from "../../assets/activedate.png";
 import inactivedate from "../../assets/inactivedate.png";
+import Modal from "../Modal/Modal";
+import piechartactive from "../../assets/piechartactive.svg";
+import piechartpassive from "../../assets/piechartpassive.svg";
+import hourglassactive from "../../assets/hourglassactive.svg";
+import hourglasspassive from "../../assets/hourglasspassive.svg";
+import { Doughnut } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+
+// Chart.js register
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 const MyReadingsFilter = ({ book }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { state } = location;
+  const [modalOpen, setModalOpen] = useState(false);
+  const [currentView, setCurrentView] = useState("diary"); // ✅ View state
 
   // Redux state'ten bookData'yı al
   const reduxBookData = useSelector((state) => state.books.currentBook);
@@ -136,17 +148,47 @@ const MyReadingsFilter = ({ book }) => {
   const calculatePagesPerHour = (entry) => {
     if (entry.status === "active") return "Reading...";
 
-    const start = new Date(entry.startReading);
-    const finish = new Date(entry.finishReading);
-    const diffHours = (finish - start) / (1000 * 60 * 60); // saat cinsinden
     const pagesRead = entry.finishPage - entry.startPage;
+    return `${pagesRead} pages read`;
+  };
 
-    if (diffHours > 0) {
-      const pagesPerHour = Math.round(pagesRead / diffHours);
-      return `${pagesPerHour} pages per hour`;
-    }
+  // ✅ Toplam okunan sayfaları hesapla
+  const totalReadPages =
+    bookData?.progress?.reduce((total, entry) => {
+      const pagesRead =
+        entry.status === "active"
+          ? entry.startPage
+          : entry.finishPage - entry.startPage;
+      return total + pagesRead;
+    }, 0) || 0;
 
-    return "0 pages per hour";
+  const totalPages = bookData?.totalPages || 1;
+  const percentage = Math.round((totalReadPages / totalPages) * 100);
+
+  // ✅ Chart data
+  const chartData = {
+    datasets: [
+      {
+        data: [percentage, 100 - percentage],
+        backgroundColor:
+          percentage === 100 ? ["#00ff00", "#1f1f1f"] : ["#00ff00", "#1f1f1f"], // ✅ 100 olduğunda yeşil
+        borderWidth: 0,
+      },
+    ],
+  };
+
+  const chartOptions = {
+    cutout: "80%", // Doughnut için
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        enabled: false,
+      },
+    },
   };
 
   return (
@@ -159,12 +201,25 @@ const MyReadingsFilter = ({ book }) => {
           enableReinitialize
           initialValues={{ pageNumber: currentPage }}
           onSubmit={(values) => {
-            // Form submit'te bookData yerine kesin olan book id'sini kullan
             const bookId = book?._id || bookData?._id;
             if (isReading) {
-              dispatch(finishReading({ id: bookId, page: values.pageNumber }));
+              dispatch(
+                finishReading({ id: bookId, page: values.pageNumber })
+              ).then(() => {
+                // Başarılı olursa progress'i yeniden çek
+                dispatch(fetchBookInfo(bookId));
+                // ✅ Kitap bitmiş mi kontrol et
+                if (values.pageNumber >= (bookData?.totalPages || 1)) {
+                  setModalOpen(true); // ✅ Modal aç
+                }
+              });
             } else {
-              dispatch(startReading({ id: bookId, page: values.pageNumber }));
+              dispatch(
+                startReading({ id: bookId, page: values.pageNumber })
+              ).then(() => {
+                // Başarılı olursa progress'i yeniden çek
+                dispatch(fetchBookInfo(bookId));
+              });
             }
           }}
         >
@@ -200,54 +255,113 @@ const MyReadingsFilter = ({ book }) => {
         </div>
       ) : (
         <div>
-          <h2 className={styles.progressTitle}>Diary</h2>
-          <ul className={styles.progressList}>
-            {Object.keys(groupedProgress).map((date) => (
-              <li key={date} className={styles.dateGroup}>
-                <div className={styles.dateHeader}>
-                  <div className={styles.dateSection}>
-                    <img
-                      className={styles.dateIcon}
-                      src={date === today ? activedate : inactivedate}
-                      alt={date === today ? "active date" : "inactive date"}
-                    />
-                    <p className={styles.dateText}>{date}</p>
+          <div className={styles.iconContainer}>
+            <h2 className={styles.progressTitle}>
+              {currentView === "diary" ? "Diary" : "Statistics"}
+            </h2>
+            <div className={styles.icons}>
+              <img
+                className={`${styles.icon} ${
+                  currentView === "diary" ? styles.active : ""
+                }`}
+                onClick={() => setCurrentView("diary")}
+                src={
+                  currentView === "diary" ? hourglassactive : hourglasspassive
+                }
+                alt="Diary"
+              />
+              <img
+                className={`${styles.icon} ${
+                  currentView === "other" ? styles.active : ""
+                }`}
+                onClick={() => setCurrentView("other")}
+                src={currentView === "other" ? piechartactive : piechartpassive}
+                alt="Other"
+              />
+            </div>
+          </div>
+
+          {/* ✅ SVG icon'lar ekle */}
+
+          {currentView === "diary" ? (
+            // ✅ Mevcut diary kısmı
+            <ul className={styles.progressList}>
+              {Object.keys(groupedProgress).map((date) => (
+                <li key={date} className={styles.dateGroup}>
+                  <div className={styles.dateHeader}>
+                    <div className={styles.dateSection}>
+                      <img
+                        className={styles.dateIcon}
+                        src={date === today ? activedate : inactivedate}
+                        alt={date === today ? "active date" : "inactive date"}
+                      />
+                      <p className={styles.dateText}>{date}</p>
+                    </div>
+
+                    <p className={styles.pagesText}>
+                      {calculateTotalPagesForDate(date)} pages
+                    </p>
                   </div>
+                  <ul className={styles.entryList}>
+                    {groupedProgress[date].map((entry, index) => (
+                      <li key={index} className={styles.entryItem}>
+                        <div className={styles.minutesSection}>
+                          <p className={styles.percentage}>
+                            {calculatePercentage(entry)}%
+                          </p>
+                          <p className={styles.duration}>
+                            {calculateDurationMinutes(entry)}
+                          </p>
+                        </div>
 
-                  <p className={styles.pagesText}>
-                    {calculateTotalPagesForDate(date)} pages
-                  </p>
+                        <div className={styles.pagesSection}>
+                          <img
+                            className={styles.progressIcon}
+                            src={progress}
+                            alt="progress"
+                          />
+                          <p className={styles.pages}>
+                            {calculatePagesPerHour(entry)}
+                          </p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            // ✅ Statistics kısmı
+            <div>
+              <p className={styles.statisticsText}>
+                Each page, each chapter is a new round of knowledge, a new step
+                towards understanding. By rewriting statistics, we create our
+                own reading history.
+              </p>
+              <div className={styles.statistics}>
+                <div className={styles.chartContainer}>
+                  <Doughnut data={chartData} options={chartOptions} />
+                  <div className={styles.centerText}>{percentage}%</div>
                 </div>
-                <ul className={styles.entryList}>
-                  {groupedProgress[date].map((entry, index) => (
-                    <li key={index} className={styles.entryItem}>
-                      <div className={styles.minutesSection}>
-                        <p className={styles.percentage}>
-                          {calculatePercentage(entry)}%
-                        </p>
-                        <p className={styles.duration}>
-                          {calculateDurationMinutes(entry)}
-                        </p>
-                      </div>
-
-                      <div className={styles.pagesSection}>
-                        <img
-                          className={styles.progressIcon}
-                          src={progress}
-                          alt="progress"
-                        />
-                        <p className={styles.pages}>
-                          {calculatePagesPerHour(entry)}
-                        </p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            ))}
-          </ul>
+                <div className={styles.progressInfo}>
+                  <div className={styles.sign}></div>
+                  <div className={styles.progressDetails}>
+                    <p className={styles.percentageText}>{percentage}%</p>
+                    <p className={styles.pagesReadText}>
+                      {totalReadPages} pages read
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
+      <Modal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        variant="goodjob"
+      />
     </div>
   );
 };
