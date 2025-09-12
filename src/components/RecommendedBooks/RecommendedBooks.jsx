@@ -9,7 +9,7 @@ const RecommendedBooks = () => {
   const dispatch = useDispatch();
 
   const [currentPage, setCurrentPage] = useState({ page: 1, limit: 10 });
-  const [isMobile, setIsMobile] = useState(false); // ✅ Mobil state
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth); // ✅ Screen width state
 
   const [selectedBook, setSelectedBook] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,7 +18,7 @@ const RecommendedBooks = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
+      setScreenWidth(window.innerWidth);
     };
 
     handleResize(); // ✅ İlk yükleme
@@ -28,7 +28,7 @@ const RecommendedBooks = () => {
   }, []); // ✅ Resize dinle
 
   useEffect(() => {
-    const limit = isMobile ? 2 : 10;
+    const limit = screenWidth < 768 ? 2 : screenWidth < 1024 ? 8 : 10; // ✅ Tablet için 8
     if (
       !recommendedBooks.results ||
       recommendedBooks.page !== currentPage.page
@@ -42,10 +42,10 @@ const RecommendedBooks = () => {
         })
       );
     }
-  }, [dispatch, currentPage.page, isMobile]); // ✅ isMobile dependency
+  }, [dispatch, currentPage.page, screenWidth]); // ✅ screenWidth dependency
 
   useEffect(() => {
-    const limit = isMobile ? 2 : 10;
+    const limit = screenWidth < 768 ? 2 : screenWidth < 1024 ? 8 : 10; // ✅ Tablet için 8
     if (recommendedBooks.limit !== limit) {
       dispatch(
         fetchRecommendedBooks({
@@ -56,7 +56,8 @@ const RecommendedBooks = () => {
         })
       );
     }
-  }, [isMobile]);
+  }, [screenWidth]); // ✅ screenWidth dependency
+
   const handleBookClick = (book) => {
     setSelectedBook(book);
     setIsModalOpen(true);

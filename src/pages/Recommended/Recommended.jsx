@@ -7,9 +7,7 @@ import Filter from "../../components/Filter/Filter.jsx";
 const Recommended = () => {
   return (
     <div className={styles.container}>
-      <div>
-        <Header />
-      </div>
+      <Header className={styles.header} />
       <div className={styles.recommendationContainer}>
         <Filter />
         <RecommendedBooks />

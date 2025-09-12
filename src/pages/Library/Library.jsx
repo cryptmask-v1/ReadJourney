@@ -2,19 +2,13 @@ import React from "react";
 import Header from "../../components/Header/Header";
 import MyLibraryFilter from "../../components/MyLibraryFilter/MyLibraryFilter";
 import MyLibraryBooks from "../../components/MyLibraryBooks/MyLibraryBooks";
+import styles from "./Library.module.css";
 
 const Library = () => {
   return (
     <div>
       <Header />
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: "16px",
-        }}
-      >
+      <div className={styles.libraryContent}>
         <MyLibraryFilter />
         <MyLibraryBooks />
       </div>

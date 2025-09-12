@@ -17,12 +17,23 @@ const Header = () => {
   const token = useSelector((state) => state.auth.token);
   const { user, isLoading, error } = useSelector((state) => state.users);
   const [isOpen, setIsOpen] = useState(false); // ✅ Hamburger menu state
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth); // ✅ Screen width state
 
   useEffect(() => {
     if (token && !user) {
       dispatch(fetchCurrentUser());
     }
   }, [token, user, dispatch]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []); // ✅ Resize dinle
 
   const handleLogout = async () => {
     try {
@@ -69,8 +80,9 @@ const Header = () => {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <div>
-          {window.innerWidth < 768 ? (
+        <div className={styles.logo}>
+          {/* tablet için de mobille aynı logo */}
+          {screenWidth < 1024 ? (
             <img src={mobileLogo} alt="Mobile Logo" />
           ) : (
             <img src={logo} alt="Logo" />
