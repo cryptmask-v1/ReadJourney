@@ -9,6 +9,7 @@ const RecommendedBooks = () => {
   const dispatch = useDispatch();
 
   const [currentPage, setCurrentPage] = useState({ page: 1, limit: 10 });
+  const [isMobile, setIsMobile] = useState(false); // ✅ Mobil state
 
   const [selectedBook, setSelectedBook] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,6 +17,18 @@ const RecommendedBooks = () => {
   const recommendedBooks = useSelector((state) => state.books.recommendedBooks);
 
   useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize(); // ✅ İlk yükleme
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []); // ✅ Resize dinle
+
+  useEffect(() => {
+    const limit = isMobile ? 2 : 10;
     if (
       !recommendedBooks.results ||
       recommendedBooks.page !== currentPage.page
@@ -25,12 +38,25 @@ const RecommendedBooks = () => {
           title: "",
           author: "",
           page: currentPage.page,
-          limit: currentPage.limit,
+          limit: limit,
         })
       );
     }
-  }, [dispatch, currentPage]);
+  }, [dispatch, currentPage.page, isMobile]); // ✅ isMobile dependency
 
+  useEffect(() => {
+    const limit = isMobile ? 2 : 10;
+    if (recommendedBooks.limit !== limit) {
+      dispatch(
+        fetchRecommendedBooks({
+          title: "",
+          author: "",
+          page: currentPage.page,
+          limit: limit,
+        })
+      );
+    }
+  }, [isMobile]);
   const handleBookClick = (book) => {
     setSelectedBook(book);
     setIsModalOpen(true);
@@ -40,6 +66,7 @@ const RecommendedBooks = () => {
     setIsModalOpen(false);
     setSelectedBook(null);
   };
+
   const handleAddToLibrary = () => {
     setIsModalOpen(false);
   };

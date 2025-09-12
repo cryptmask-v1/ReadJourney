@@ -200,4 +200,53 @@
 }
 @media (max-width: 767px) {
   /* mobil için stiller */
+  .container {
+    width: 335px;
+    height: 478px;
+    padding: 20px;
+  }
+  .workoutContainer {
+    width: 295px;
+    height: 244px;
+    padding: 20px;
+  }
+  .bottomSection {
+    display: none;
+  }
+  .inputContainer {
+    width: 295px;
+    height: 44px;
+  }
+  .inputContainer input {
+    font-size: 12px;
+  }
+  .title {
+    font-size: 10px;
+  }
+  .subtitle {
+    font-size: 12px;
+  }
+  .button {
+    width: 98px;
+    height: 38px;
+    font-size: 14px;
+  }
+  .workoutTitle {
+    font-size: 18px;
+  }
+  .listItem {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+  .listItemContainer {
+    width: 255px;
+    height: 54px;
+  }
+  .listText {
+    font-size: 14px;
+  }
+  .list {
+    margin-top: 20px;
+  }
 }

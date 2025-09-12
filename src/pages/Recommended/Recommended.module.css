@@ -10,3 +10,12 @@
   justify-content: center;
   gap: 16px;
 }
+
+@media (max-width: 767px) {
+  /* mobil için stiller */
+  .recommendationContainer {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+}

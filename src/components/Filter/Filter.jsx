@@ -61,14 +61,14 @@ const Filter = () => {
           <div className={styles.listItemContainer}>
             <div className={styles.listItem}>1</div>
             <h4 className={styles.listText}>
-              <span>Create a personal library:</span>
+              <span>Create a personal library: </span>
               add the books you intend to read to it.
             </h4>
           </div>
           <div className={styles.listItemContainer}>
             <div className={styles.listItem}>2</div>
             <h4 className={styles.listText}>
-              <span>Create your first workout:</span>
+              <span>Create your first workout: </span>
               define a goal, choose a period, start training.
             </h4>
           </div>

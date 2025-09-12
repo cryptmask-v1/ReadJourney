@@ -67,7 +67,7 @@
   font-size: 14px;
   line-height: 129%;
   letter-spacing: -0.02em;
-  color: #686868;
+  color: #f9f9f9;
   margin: 0 0 20px 0;
 }
 
@@ -128,4 +128,21 @@
 }
 @media (max-width: 767px) {
   /* mobil için stiller */
+  .modalContent {
+    width: 335px;
+    height: 421px;
+  }
+  .modalImage {
+    width: 140px;
+    height: 213px;
+  }
+  .modalTitle {
+    font-size: 18px;
+  }
+  .modalAuthor {
+    font-size: 12px;
+  }
+  .modalPages {
+    font-size: 10px;
+  }
 }

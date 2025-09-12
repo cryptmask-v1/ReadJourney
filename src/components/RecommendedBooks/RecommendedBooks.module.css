@@ -97,3 +97,31 @@
   letter-spacing: -0.02em;
   color: #686868;
 }
+@media (max-width: 1023px) {
+  /* tablet için stiller */
+}
+@media (max-width: 767px) {
+  /* mobil için stiller */
+  .container {
+    width: 335px;
+    height: 382px;
+    margin: 0px;
+    padding: 40px 20px;
+  }
+  .bookList {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .title {
+    font-size: 20px;
+  }
+  .bookImage {
+    width: 137px;
+    height: 208px;
+  }
+  .prevNextBtn {
+    width: 32px;
+    height: 32px;
+    font-size: 6px;
+  }
+}

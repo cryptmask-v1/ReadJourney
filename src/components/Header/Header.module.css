@@ -119,3 +119,133 @@
   color: #f9f9f9;
   padding: 12px 28px;
 }
+.hamburger {
+  display: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: #f9f9f9;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9;
+}
+
+.burgerMenu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 100vh;
+  background: #1f1f1f;
+  z-index: 10;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.burgerMenu.open {
+  transform: translateX(0);
+}
+
+.burgerNav {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.burgerLink {
+  text-decoration: none;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 112%;
+  letter-spacing: -0.02em;
+  color: #f9f9f9;
+  padding: 10px 0;
+}
+
+.burgerLogout {
+  background-color: transparent;
+  border: 1px solid rgba(249, 249, 249, 0.2);
+  border-radius: 30px;
+  padding: 12px 28px;
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 112%;
+  letter-spacing: 0.02em;
+  color: #f9f9f9;
+  margin-top: auto;
+}
+.burgerNavItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.burgerLink.active {
+  color: #f9f9f9;
+}
+
+.activeIndicator {
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 3px;
+  background-color: #4f92f7;
+  border-radius: 2px;
+}
+.closeIcon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  font-size: 24px;
+  color: #f9f9f9;
+}
+
+.homeIndicator {
+  width: 43px;
+}
+
+.libraryIndicator {
+  width: 71px;
+}
+
+@media (max-width: 1023px) {
+  /* tablet için stiller */
+}
+@media (max-width: 767px) {
+  /* mobil için stiller */
+  .container {
+    width: 335px;
+    height: 57px;
+  }
+  .navLinks {
+    display: none;
+  }
+  .userName {
+    display: none;
+  }
+  .logOutBtn {
+    display: none;
+  }
+  .hamburger {
+    display: block;
+  }
+}

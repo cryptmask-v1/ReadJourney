@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react"; // ✅ useState import
 import styles from "./Header.module.css";
 import logo from "../../assets/Logo.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,6 +6,8 @@ import { fetchCurrentUser } from "../../store/Users/userService.js";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logoutUser } from "../../store/Auth/authService";
 import { notify } from "../Notify/Notify";
+import mobileLogo from "../../assets/mobileLogo.png";
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai"; // ✅ React icons import
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -14,6 +16,7 @@ const Header = () => {
 
   const token = useSelector((state) => state.auth.token);
   const { user, isLoading, error } = useSelector((state) => state.users);
+  const [isOpen, setIsOpen] = useState(false); // ✅ Hamburger menu state
 
   useEffect(() => {
     if (token && !user) {
@@ -33,6 +36,7 @@ const Header = () => {
       navigate("/login");
     }
   };
+
   const getIndicatorClass = (currentPath) => {
     switch (currentPath) {
       case "/recommended":
@@ -66,7 +70,11 @@ const Header = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <div>
-          <img src={logo} alt="Logo" />
+          {window.innerWidth < 768 ? (
+            <img src={mobileLogo} alt="Mobile Logo" />
+          ) : (
+            <img src={logo} alt="Logo" />
+          )}
         </div>
         <nav className={styles.navLinks}>
           {renderNavItem("/recommended", "Home")}
@@ -88,7 +96,61 @@ const Header = () => {
           <button className={styles.logOutBtn} onClick={handleLogout}>
             Log out
           </button>
+          <div className={styles.hamburger} onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
+          </div>
         </div>
+      </div>
+      {isOpen && (
+        <div className={styles.overlay} onClick={() => setIsOpen(false)}></div>
+      )}
+      <div className={`${styles.burgerMenu} ${isOpen ? styles.open : ""}`}>
+        <div className={styles.closeIcon} onClick={() => setIsOpen(false)}>
+          <AiOutlineClose />
+        </div>
+        <nav className={styles.burgerNav}>
+          <div className={styles.burgerNavItem}>
+            <Link
+              className={`${styles.burgerLink} ${
+                location.pathname === "/recommended" ? styles.active : ""
+              }`}
+              to="/recommended"
+              onClick={() => setIsOpen(false)}
+            >
+              Home
+            </Link>
+            {location.pathname === "/recommended" && (
+              <div
+                className={`${styles.activeIndicator} ${styles.homeIndicator}`}
+              ></div>
+            )}
+          </div>
+          <div className={styles.burgerNavItem}>
+            <Link
+              className={`${styles.burgerLink} ${
+                location.pathname === "/library" ? styles.active : ""
+              }`}
+              to="/library"
+              onClick={() => setIsOpen(false)}
+            >
+              My Library
+            </Link>
+            {location.pathname === "/library" && (
+              <div
+                className={`${styles.activeIndicator} ${styles.libraryIndicator}`}
+              ></div>
+            )}
+          </div>
+        </nav>
+        <button
+          className={styles.burgerLogout}
+          onClick={() => {
+            handleLogout();
+            setIsOpen(false);
+          }}
+        >
+          Log out
+        </button>
       </div>
     </div>
   );
