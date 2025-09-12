@@ -19,39 +19,39 @@ const MyReadingsFilter = ({ book }) => {
   const location = useLocation();
   const { state } = location;
 
-  // ✅ Redux state'ten bookData'yı al (öncelikli)
+  // Redux state'ten bookData'yı al
   const reduxBookData = useSelector((state) => state.books.currentBook);
   const bookData = reduxBookData || state?.book || book;
 
   const [isReading, setIsReading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
-  console.log("bookData._id:", bookData?._id);
-  // ✅ fetchBookInfo çağrısını güvenli hale getir
+  // SADECE prop olarak gelen book'un id'sini kullan
   useEffect(() => {
-    if (!bookData) return;
-    const id = bookData?._id;
-    if (!id) return;
-    // Eğer redux'taki currentBook zaten aynı id ise yeniden fetch etme
-    if (reduxBookData && reduxBookData._id === id) return;
+    const bookId = book?._id || state?.book?._id;
+    if (!bookId) return;
 
-    dispatch(fetchBookInfo(id))
+    // Eğer redux'taki currentBook zaten aynı id ise yeniden fetch etme
+    if (reduxBookData && reduxBookData._id === bookId) return;
+
+    dispatch(fetchBookInfo(bookId))
       .unwrap()
       .catch((error) => {
-        // axios hatası veya rejectWithValue ile gelen info'y kontrol et
         const status =
           error?.status || error?.response?.status || error?.statusCode;
         if (
           status === 404 ||
           (error?.message && error.message.toLowerCase().includes("not found"))
         ) {
-          /* Lines 47-51 omitted */
+          dispatch({ type: "books/setCurrentBook", payload: null });
+          console.warn("fetchBookInfo 404: currentBook temizlendi");
         } else {
-          /* Lines 52-53 omitted */
+          console.error("fetchBookInfo error:", error);
         }
       });
-  }, [dispatch, bookData?._id, reduxBookData?._id]);
-  // ✅ Progress array'ini takip et ve state güncelle
+  }, [dispatch, book?._id, state?.book?._id, reduxBookData]);
+
+  // Progress array'ini takip et ve state güncelle
   useEffect(() => {
     if (!bookData) return;
     if (!bookData?.progress || bookData.progress.length === 0) {
@@ -85,77 +85,31 @@ const MyReadingsFilter = ({ book }) => {
     );
   }
 
-  console.log("bookData._id:", bookData?._id);
-  // ✅ fetchBookInfo çağrısını güvenli hale getir
-  useEffect(() => {
-    const id = bookData?._id;
-    if (!id) return;
-    // Eğer redux'taki currentBook zaten aynı id ise yeniden fetch etme
-    if (reduxBookData && reduxBookData._id === id) return;
-
-    dispatch(fetchBookInfo(id))
-      .unwrap()
-      .catch((error) => {
-        // axios hatası veya rejectWithValue ile gelen info'yu kontrol et
-        const status =
-          error?.status || error?.response?.status || error?.statusCode;
-        if (
-          status === 404 ||
-          (error?.message && error.message.toLowerCase().includes("not found"))
-        ) {
-          // Redux slice üzerinden temizleme action'ınız varsa onu dispatch edin,
-          // yoksa doğrudan setCurrentBook action tipi ile temizleyin
-          dispatch({ type: "books/setCurrentBook", payload: null });
-          console.warn("fetchBookInfo 404: currentBook temizlendi");
-        } else {
-          console.error("fetchBookInfo error:", error);
-        }
-      });
-  }, [dispatch, bookData?._id, reduxBookData?._id]);
-  // ✅ Progress array'ini takip et ve state güncelle
-  useEffect(() => {
-    if (!bookData?.progress || bookData.progress.length === 0) {
-      setIsReading(false);
-      setCurrentPage(1);
-      return;
-    }
-
-    const lastProgress = bookData.progress[bookData.progress.length - 1];
-
-    if (lastProgress.status === "active") {
-      setIsReading(true);
-      setCurrentPage(lastProgress.startPage || 1);
-    } else {
-      setIsReading(false);
-      setCurrentPage(lastProgress.finishPage || 1);
-    }
-  }, [bookData?.progress]);
-
-  // ✅ Yüzdelik hesabı fonksiyonu (ondalık ile)
+  // Yüzdelik hesabı fonksiyonu
   const calculatePercentage = (entry) => {
     const pagesRead =
       entry.status === "active"
         ? entry.startPage
         : entry.finishPage - entry.startPage;
-    const totalPages = bookData?.totalPages || 1; // Güvenli fallback
+    const totalPages = bookData?.totalPages || 1;
     const percentage = (pagesRead / totalPages) * 100;
-    return percentage.toFixed(2); // ✅ 0.00 formatında
+    return percentage.toFixed(1); // 0.0 formatında
   };
 
-  // ✅ Süre hesabı fonksiyonu (dakika olarak)
+  // Süre hesabı fonksiyonu
   const calculateDurationMinutes = (entry) => {
     if (entry.status === "active") return "Ongoing";
     const start = new Date(entry.startReading);
     const finish = new Date(entry.finishReading);
     const diffMs = finish - start;
-    const diffMinutes = Math.floor(diffMs / (1000 * 60)); // Milisaniyeyi dakikaya çevir
+    const diffMinutes = Math.floor(diffMs / (1000 * 60));
     return `${diffMinutes} minutes`;
   };
 
-  // ✅ Bugünkü tarihi al
+  // Bugünkü tarihi al
   const today = new Date().toLocaleDateString();
 
-  // ✅ Progress'i tarihe göre grupla
+  // Progress'i tarihe göre grupla
   const groupedProgress =
     bookData?.progress?.reduce((groups, entry) => {
       const date = new Date(entry.startReading).toLocaleDateString();
@@ -166,7 +120,7 @@ const MyReadingsFilter = ({ book }) => {
       return groups;
     }, {}) || {};
 
-  // ✅ Tarih için toplam okunan sayfa hesabı
+  // Tarih için toplam okunan sayfa hesabı
   const calculateTotalPagesForDate = (date) => {
     const entries = groupedProgress[date];
     return entries.reduce((total, entry) => {
@@ -176,6 +130,23 @@ const MyReadingsFilter = ({ book }) => {
           : entry.finishPage - entry.startPage;
       return total + pagesRead;
     }, 0);
+  };
+
+  // Saatlik sayfa hesabı
+  const calculatePagesPerHour = (entry) => {
+    if (entry.status === "active") return "Reading...";
+
+    const start = new Date(entry.startReading);
+    const finish = new Date(entry.finishReading);
+    const diffHours = (finish - start) / (1000 * 60 * 60); // saat cinsinden
+    const pagesRead = entry.finishPage - entry.startPage;
+
+    if (diffHours > 0) {
+      const pagesPerHour = Math.round(pagesRead / diffHours);
+      return `${pagesPerHour} pages per hour`;
+    }
+
+    return "0 pages per hour";
   };
 
   return (
@@ -188,14 +159,12 @@ const MyReadingsFilter = ({ book }) => {
           enableReinitialize
           initialValues={{ pageNumber: currentPage }}
           onSubmit={(values) => {
+            // Form submit'te bookData yerine kesin olan book id'sini kullan
+            const bookId = book?._id || bookData?._id;
             if (isReading) {
-              dispatch(
-                finishReading({ id: bookData?._id, page: values.pageNumber })
-              );
+              dispatch(finishReading({ id: bookId, page: values.pageNumber }));
             } else {
-              dispatch(
-                startReading({ id: bookData?._id, page: values.pageNumber })
-              );
+              dispatch(startReading({ id: bookId, page: values.pageNumber }));
             }
           }}
         >
@@ -205,7 +174,11 @@ const MyReadingsFilter = ({ book }) => {
                 <span className={styles.subtitle}>
                   {isReading ? "Current page:" : "Start page:"}
                 </span>
-                <Field className={styles.field} name="number" />
+                <Field
+                  className={styles.field}
+                  name="pageNumber"
+                  type="number"
+                />
               </div>
               <button className={styles.button} type="submit">
                 {isReading ? "To stop" : "To start"}
@@ -214,7 +187,7 @@ const MyReadingsFilter = ({ book }) => {
           )}
         </Formik>
       </div>
-      {bookData?.progress?.length === 0 ? (
+      {!bookData?.progress || bookData.progress.length === 0 ? (
         <div className={styles.bottomSection}>
           <h2 className={styles.diaryTitle}>Progress</h2>
           <p className={styles.diaryText}>
@@ -232,7 +205,6 @@ const MyReadingsFilter = ({ book }) => {
             {Object.keys(groupedProgress).map((date) => (
               <li key={date} className={styles.dateGroup}>
                 <div className={styles.dateHeader}>
-                  {/* ✅ Aktif/inactive ikonu */}
                   <div className={styles.dateSection}>
                     <img
                       className={styles.dateIcon}
@@ -258,7 +230,6 @@ const MyReadingsFilter = ({ book }) => {
                         </p>
                       </div>
 
-                      {/* ✅ Süre göster */}
                       <div className={styles.pagesSection}>
                         <img
                           className={styles.progressIcon}
@@ -266,10 +237,7 @@ const MyReadingsFilter = ({ book }) => {
                           alt="progress"
                         />
                         <p className={styles.pages}>
-                          {(entry.status === "active"
-                            ? entry.startPage
-                            : entry.finishPage) - entry.startPage}{" "}
-                          pages per hour
+                          {calculatePagesPerHour(entry)}
                         </p>
                       </div>
                     </li>
