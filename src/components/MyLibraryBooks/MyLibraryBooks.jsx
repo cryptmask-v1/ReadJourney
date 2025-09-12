@@ -1,6 +1,5 @@
 import styles from "./MyLibraryBooks.module.css";
 import { Formik, Form, Field } from "formik";
-import book from "../../assets/book.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import Modal from "../Modal/Modal";
@@ -8,6 +7,7 @@ import { getCurrentUserBooks } from "../../store/Books/bookService";
 import bookskeleton from "../../assets/bookskeleton.png";
 import deleteicon from "../../assets/deleteicon.svg";
 import { deleteBookFromLibrary } from "../../store/Books/bookService";
+import largeBook from "../../assets/largeBook.png";
 
 import { notify } from "../Notify/Notify";
 
@@ -71,7 +71,7 @@ const MyLibraryBooks = () => {
         </div>
 
         <div className={styles.bookListContainer}>
-          <ul className={styles.bookList}>
+          <div className={styles.bookList}>
             {ownBooks && ownBooks.length > 0 ? (
               ownBooks.map((book) => (
                 <li key={book._id} className={styles.bookItem}>
@@ -106,19 +106,21 @@ const MyLibraryBooks = () => {
                 </li>
               ))
             ) : (
-              <div className={styles.box}>
-                <div className={styles.imageContainer}>
-                  <img src={book} alt="Book" className={styles.image} />
-                </div>
-                <div className={styles.info}>
-                  <p className={styles.text}>
-                    To start training, add <span>some of your books</span> or
-                    from the recommended ones
-                  </p>
+              <div className={styles.noBooksContainer}>
+                <div className={styles.box}>
+                  <div className={styles.imageContainer}>
+                    <img src={largeBook} alt="Book" className={styles.image} />
+                  </div>
+                  <div className={styles.info}>
+                    <p className={styles.text}>
+                      To start training, add <span>some of your books</span> or
+                      from the recommended ones
+                    </p>
+                  </div>
                 </div>
               </div>
             )}
-          </ul>
+          </div>
         </div>
       </div>
       <Modal

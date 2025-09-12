@@ -92,6 +92,7 @@
 .field option:first-child {
   font-weight: 700;
 }
+
 .box {
   display: flex;
   align-items: center;
@@ -99,7 +100,7 @@
   flex-direction: column;
   width: 274px;
   height: 186px;
-  margin: auto; /* Box'ı ortala */
+  text-align: center;
 }
 .image {
   width: 70px;
@@ -180,13 +181,17 @@
   gap: 20px;
   padding: 0px;
   margin: 0px;
-  align-content: start;
+  /* ✅ Dikey ortala */
+  align-items: start; /* ✅ Diğer item'lar normal */
+  justify-items: start; /* ✅ Diğer item'lar normal */
+  min-height: 100%; /* ✅ Minimum height */
 }
 .bookItem {
   width: 137px;
   height: 248px;
 }
 .bookImage {
+  cursor: pointer;
   border-radius: 8px;
   width: 137px;
   height: 208px;
@@ -224,4 +229,13 @@
   line-height: 120%;
   letter-spacing: -0.02em;
   color: #686868;
+}
+.noBooksContainer {
+  grid-column: 1 / -1; /* ✅ Grid içinde yatay ortala */
+  place-self: center; /* ✅ Kendini ortala */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  height: 186px;
 }

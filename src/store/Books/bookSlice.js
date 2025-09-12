@@ -76,15 +76,15 @@ const bookSlice = createSlice({
       })
       // Delete book from library
       .addCase(deleteBookFromLibrary.fulfilled, (state, action) => {
+        // ✅ userBooks'ten silinen kitabı kaldır
         state.userBooks = state.userBooks.filter(
-          (book) => book.id !== action.payload.id
+          (book) => book._id !== action.payload.id
         );
         state.loading = false;
         state.error = null;
       })
       .addCase(deleteBookFromLibrary.pending, (state) => {
         state.loading = true;
-        state.error = null;
       })
       .addCase(deleteBookFromLibrary.rejected, (state, action) => {
         state.loading = false;
