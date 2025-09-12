@@ -1,21 +1,23 @@
 import styles from "./LoginRegister.module.css";
-import { ErrorMessage, Formik } from "formik";
+import { ErrorMessage, Field, Formik } from "formik";
 import { loginUser, registerUser } from "../../store/Auth/authService.js";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react"; // ✅ useState import
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import logo from "../../assets/Logo.png";
 import mobileLogo from "../../assets/mobileLogo.png";
 import hero from "../../assets/hero.png";
 import heroMobile from "../../assets/mobileHero.png";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"; // ✅ React icons import
 
 const LoginRegister = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const token = useSelector((state) => state.auth.token);
+  const [showPassword, setShowPassword] = useState(false); // ✅ Show password state
 
   useEffect(() => {
     if (token) {
@@ -115,31 +117,74 @@ const LoginRegister = () => {
                       className={styles.formSection}
                       onSubmit={handleSubmit}
                     >
-                      <input
-                        type="text"
-                        name="name"
-                        placeholder="Name"
-                        onChange={handleChange}
-                        value={values.name}
-                      />
-                      <ErrorMessage name="name" component="div" />
-                      <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        onChange={handleChange}
-                        value={values.email}
-                      />
-                      <ErrorMessage name="email" component="div" />
-                      <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        onChange={handleChange}
-                        value={values.password}
-                      />
-                      <ErrorMessage name="password" component="div" />
-                      <div className={styles.btnSection}>
+                      <div className={styles.registerInputs}>
+                        <ErrorMessage
+                          className={styles.errorMessage}
+                          name="name"
+                          component="div"
+                        />
+                        <div className={styles.inputContainer}>
+                          <span className={styles.subtitle}>Name:</span>
+                          <Field
+                            type="text"
+                            name="name"
+                            className={styles.field}
+                            placeholder="Name"
+                            onChange={handleChange}
+                            value={values.name}
+                          />
+                        </div>
+
+                        <ErrorMessage
+                          className={styles.errorMessage}
+                          name="email"
+                          component="div"
+                        />
+                        <div className={styles.inputContainer}>
+                          <span className={styles.subtitle}>Email:</span>
+                          <Field
+                            type="email"
+                            name="email"
+                            className={styles.field}
+                            placeholder="Email"
+                            onChange={handleChange}
+                            value={values.email}
+                          />
+                        </div>
+
+                        <ErrorMessage
+                          className={styles.errorMessage}
+                          name="password"
+                          component="div"
+                        />
+                        <div className={styles.passwordContainer}>
+                          <div className={styles.inputContainer}>
+                            <span className={styles.subtitle}>Password:</span>
+                            <Field
+                              type={showPassword ? "text" : "password"}
+                              name="password"
+                              className={styles.field}
+                              placeholder="Password"
+                              onChange={handleChange}
+                              value={values.password}
+                            />
+                          </div>
+
+                          {showPassword ? (
+                            <AiOutlineEyeInvisible
+                              className={styles.eyeIcon}
+                              onClick={() => setShowPassword(!showPassword)}
+                            />
+                          ) : (
+                            <AiOutlineEye
+                              className={styles.eyeIcon}
+                              onClick={() => setShowPassword(!showPassword)}
+                            />
+                          )}
+                        </div>
+                      </div>
+
+                      <div className={styles.btnSectionRegister}>
                         <button
                           className={styles.registerBtn}
                           type="submit"
@@ -148,6 +193,8 @@ const LoginRegister = () => {
                           Register
                         </button>
                         <Link className={styles.btnSectionLink} to="/login">
+                          {" "}
+                          {/* ✅ Düzeltildi */}
                           Already have an account?
                         </Link>
                       </div>
@@ -167,31 +214,67 @@ const LoginRegister = () => {
                       className={styles.formSection}
                       onSubmit={handleSubmit}
                     >
-                      <ErrorMessage name="email" component="div" />
-                      <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        onChange={handleChange}
-                        value={values.email}
-                      />
-                      <ErrorMessage name="password" component="div" />
-                      <input
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        onChange={handleChange}
-                        value={values.password}
-                      />
-                      <div className={styles.btnSection}>
+                      <div className={styles.registerInputs}>
+                        <ErrorMessage
+                          className={styles.errorMessage}
+                          name="email"
+                          component="div"
+                        />
+                        <div className={styles.inputContainer}>
+                          <span className={styles.subtitle}>Email:</span>
+                          <Field
+                            type="email"
+                            name="email"
+                            placeholder="Email"
+                            className={styles.field}
+                            onChange={handleChange}
+                            value={values.email}
+                          />
+                        </div>
+
+                        <ErrorMessage
+                          className={styles.errorMessage}
+                          name="password"
+                          component="div"
+                        />
+                        <div className={styles.passwordContainer}>
+                          <div className={styles.inputContainer}>
+                            <span className={styles.subtitle}>Password:</span>
+                            <Field
+                              type={showPassword ? "text" : "password"}
+                              name="password"
+                              placeholder="Password"
+                              className={styles.field}
+                              onChange={handleChange}
+                              value={values.password}
+                            />
+                          </div>
+
+                          {showPassword ? (
+                            <AiOutlineEyeInvisible
+                              className={styles.eyeIcon}
+                              onClick={() => setShowPassword(!showPassword)}
+                            />
+                          ) : (
+                            <AiOutlineEye
+                              className={styles.eyeIcon}
+                              onClick={() => setShowPassword(!showPassword)}
+                            />
+                          )}
+                        </div>
+                      </div>
+
+                      <div className={styles.btnSectionLogin}>
                         <button
-                          className={styles.registerBtn}
+                          className={styles.loginBtn}
                           type="submit"
                           disabled={isSubmitting}
                         >
                           Login
                         </button>
                         <Link className={styles.btnSectionLink} to="/register">
+                          {" "}
+                          {/* ✅ Düzeltildi */}
                           Don't have an account?
                         </Link>
                       </div>
