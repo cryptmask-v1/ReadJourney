@@ -2,7 +2,7 @@ import "./App.css";
 import LoginRegister from "./pages/LoginRegister/LoginRegister";
 import Library from "./pages/Library/Library";
 import Reading from "./pages/Reading/Reading";
-import { Route, Router, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Recommended from "./pages/Recommended/Recommended";
 import ProtectedRoute from "./services/ProtectedRoute";
 import { ToastContainer } from "react-toastify";
@@ -22,7 +22,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<LoginRegister />} />
+        <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<LoginRegister />} />
         <Route path="/register" element={<LoginRegister />} />
         <Route element={<ProtectedRoute />}>
@@ -30,6 +30,7 @@ function App() {
           <Route path="/library" element={<Library />} />
           <Route path="/reading" element={<Reading />} />
         </Route>
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
       <ToastContainer />
     </>
