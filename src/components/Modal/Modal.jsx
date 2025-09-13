@@ -6,7 +6,7 @@ import { notify } from "../Notify/Notify";
 import { useNavigate } from "react-router-dom";
 import bookskeleton from "../../assets/bookskeletonlarge.png";
 import { IoClose } from "react-icons/io5";
-import largeBook from "../../assets/largebook.png";
+import largeBook from "../../assets/largeBook.png";
 
 const Modal = ({ book, isOpen, onClose, variant }) => {
   const dispatch = useDispatch();
