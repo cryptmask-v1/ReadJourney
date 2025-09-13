@@ -60,7 +60,7 @@ export const deleteBookFromLibrary = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const response = await deleteBookFromUser(id);
-      return { id: response.id }; // ✅ Doğru alanı döndür!
+      return { id: response.id };
     } catch (error) {
       return rejectWithValue(
         error.response?.data || { message: error.message }

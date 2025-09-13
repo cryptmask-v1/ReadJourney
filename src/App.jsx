@@ -12,7 +12,6 @@ import { useEffect } from "react";
 import axios from "axios";
 
 function App() {
-  // global token set
   const token = useSelector((state) => state.auth.token);
   useEffect(() => {
     if (token) {

@@ -10,14 +10,12 @@
   align-items: center;
 }
 @media (max-width: 1023px) {
-  /* tablet için stiller */
   .libraryContent {
     flex-direction: column;
   }
 }
 
 @media (max-width: 767px) {
-  /* mobil için stiller */
   .libraryContent {
     flex-direction: column;
     gap: 10px;

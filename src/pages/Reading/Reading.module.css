@@ -58,7 +58,6 @@
 }
 
 @media (max-width: 1023px) {
-  /* tablet için stiller */
   .readingPage {
     flex-direction: column;
     align-items: center;
@@ -95,7 +94,6 @@
 }
 
 @media (max-width: 767px) {
-  /* mobil için stiller */
   .readingContainer {
     width: 335px;
     height: 471px;

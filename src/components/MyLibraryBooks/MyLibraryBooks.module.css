@@ -15,7 +15,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 40px; /* Header ile box arası boşluk */
+  margin-bottom: 40px;
 }
 
 .title {
@@ -182,10 +182,10 @@
   gap: 20px;
   padding: 0px;
   margin: 0px;
-  /* ✅ Dikey ortala */
-  align-items: start; /* ✅ Diğer item'lar normal */
-  justify-items: start; /* ✅ Diğer item'lar normal */
-  min-height: 100%; /* ✅ Minimum height */
+
+  align-items: start;
+  justify-items: start;
+  min-height: 100%;
 }
 .bookItem {
   width: 137px;
@@ -232,8 +232,8 @@
   color: #686868;
 }
 .noBooksContainer {
-  grid-column: 1 / -1; /* ✅ Grid içinde yatay ortala */
-  place-self: center; /* ✅ Kendini ortala */
+  grid-column: 1 / -1;
+  place-self: center;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -242,7 +242,6 @@
 }
 
 @media (max-width: 1023px) {
-  /* tablet için stiller */
   .container {
     width: 704px;
     height: 518px;
@@ -251,7 +250,6 @@
 }
 
 @media (max-width: 767px) {
-  /* mobil için stiller */
   .container {
     width: 335px;
     height: 407px;

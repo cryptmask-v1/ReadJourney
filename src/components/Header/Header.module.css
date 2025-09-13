@@ -234,7 +234,6 @@
 }
 
 @media (max-width: 1023px) {
-  /* tablet için stiller */
   .container {
     width: 704px;
     height: 74px;
@@ -244,7 +243,6 @@
   }
 }
 @media (max-width: 767px) {
-  /* mobil için stiller */
   .container {
     width: 335px;
     height: 57px;

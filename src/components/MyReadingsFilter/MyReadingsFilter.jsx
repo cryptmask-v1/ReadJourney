@@ -21,7 +21,6 @@ import hourglasspassive from "../../assets/hourglasspassive.svg";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
-// Chart.js register
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const MyReadingsFilter = ({ book }) => {
@@ -29,21 +28,18 @@ const MyReadingsFilter = ({ book }) => {
   const location = useLocation();
   const { state } = location;
   const [modalOpen, setModalOpen] = useState(false);
-  const [currentView, setCurrentView] = useState("diary"); // ✅ View state
+  const [currentView, setCurrentView] = useState("diary");
 
-  // Redux state'ten bookData'yı al
   const reduxBookData = useSelector((state) => state.books.currentBook);
   const bookData = reduxBookData || state?.book || book;
 
   const [isReading, setIsReading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // SADECE prop olarak gelen book'un id'sini kullan
   useEffect(() => {
     const bookId = book?._id || state?.book?._id;
     if (!bookId) return;
 
-    // Eğer redux'taki currentBook zaten aynı id ise yeniden fetch etme
     if (reduxBookData && reduxBookData._id === bookId) return;
 
     dispatch(fetchBookInfo(bookId))
@@ -63,7 +59,6 @@ const MyReadingsFilter = ({ book }) => {
       });
   }, [dispatch, book?._id, state?.book?._id, reduxBookData]);
 
-  // Progress array'ini takip et ve state güncelle
   useEffect(() => {
     if (!bookData) return;
     if (!bookData?.progress || bookData.progress.length === 0) {
@@ -83,7 +78,6 @@ const MyReadingsFilter = ({ book }) => {
     }
   }, [bookData?.progress]);
 
-  // Eğer kitap bulunamadıysa mesaj göster
   if (!bookData) {
     return (
       <div className={styles.container}>
@@ -97,7 +91,6 @@ const MyReadingsFilter = ({ book }) => {
     );
   }
 
-  // Yüzdelik hesabı fonksiyonu
   const calculatePercentage = (entry) => {
     const pagesRead =
       entry.status === "active"
@@ -105,10 +98,9 @@ const MyReadingsFilter = ({ book }) => {
         : entry.finishPage - entry.startPage;
     const totalPages = bookData?.totalPages || 1;
     const percentage = (pagesRead / totalPages) * 100;
-    return percentage.toFixed(1); // 0.0 formatında
+    return percentage.toFixed(1);
   };
 
-  // Süre hesabı fonksiyonu
   const calculateDurationMinutes = (entry) => {
     if (entry.status === "active") return "Ongoing";
     const start = new Date(entry.startReading);
@@ -118,10 +110,8 @@ const MyReadingsFilter = ({ book }) => {
     return `${diffMinutes} minutes`;
   };
 
-  // Bugünkü tarihi al
   const today = new Date().toLocaleDateString();
 
-  // Progress'i tarihe göre grupla
   const groupedProgress =
     bookData?.progress?.reduce((groups, entry) => {
       const date = new Date(entry.startReading).toLocaleDateString();
@@ -132,7 +122,6 @@ const MyReadingsFilter = ({ book }) => {
       return groups;
     }, {}) || {};
 
-  // Tarih için toplam okunan sayfa hesabı
   const calculateTotalPagesForDate = (date) => {
     const entries = groupedProgress[date];
     return entries.reduce((total, entry) => {
@@ -144,7 +133,6 @@ const MyReadingsFilter = ({ book }) => {
     }, 0);
   };
 
-  // Saatlik sayfa hesabı
   const calculatePagesPerHour = (entry) => {
     if (entry.status === "active") return "Reading...";
 
@@ -152,7 +140,6 @@ const MyReadingsFilter = ({ book }) => {
     return `${pagesRead} pages read`;
   };
 
-  // ✅ Toplam okunan sayfaları hesapla
   const totalReadPages =
     bookData?.progress?.reduce((total, entry) => {
       const pagesRead =
@@ -165,20 +152,19 @@ const MyReadingsFilter = ({ book }) => {
   const totalPages = bookData?.totalPages || 1;
   const percentage = Math.round((totalReadPages / totalPages) * 100);
 
-  // ✅ Chart data
   const chartData = {
     datasets: [
       {
         data: [percentage, 100 - percentage],
         backgroundColor:
-          percentage === 100 ? ["#00ff00", "#1f1f1f"] : ["#00ff00", "#1f1f1f"], // ✅ 100 olduğunda yeşil
+          percentage === 100 ? ["#00ff00", "#1f1f1f"] : ["#00ff00", "#1f1f1f"],
         borderWidth: 0,
       },
     ],
   };
 
   const chartOptions = {
-    cutout: "80%", // Doughnut için
+    cutout: "80%",
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
@@ -206,18 +192,16 @@ const MyReadingsFilter = ({ book }) => {
               dispatch(
                 finishReading({ id: bookId, page: values.pageNumber })
               ).then(() => {
-                // Başarılı olursa progress'i yeniden çek
                 dispatch(fetchBookInfo(bookId));
-                // ✅ Kitap bitmiş mi kontrol et
+
                 if (values.pageNumber >= (bookData?.totalPages || 1)) {
-                  setModalOpen(true); // ✅ Modal aç
+                  setModalOpen(true);
                 }
               });
             } else {
               dispatch(
                 startReading({ id: bookId, page: values.pageNumber })
               ).then(() => {
-                // Başarılı olursa progress'i yeniden çek
                 dispatch(fetchBookInfo(bookId));
               });
             }
@@ -281,10 +265,7 @@ const MyReadingsFilter = ({ book }) => {
             </div>
           </div>
 
-          {/* ✅ SVG icon'lar ekle */}
-
           {currentView === "diary" ? (
-            // ✅ Mevcut diary kısmı
             <ul className={styles.progressList}>
               {Object.keys(groupedProgress).map((date) => (
                 <li key={date} className={styles.dateGroup}>
@@ -331,7 +312,6 @@ const MyReadingsFilter = ({ book }) => {
               ))}
             </ul>
           ) : (
-            // ✅ Statistics kısmı
             <div>
               <p className={styles.statisticsText}>
                 Each page, each chapter is a new round of knowledge, a new step

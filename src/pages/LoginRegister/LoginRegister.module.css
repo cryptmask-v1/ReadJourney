@@ -192,11 +192,7 @@
   text-align: left;
 }
 
-@media (max-width: 1439px) {
-  /* laptop/small desktop için stiller */
-}
 @media (max-width: 1023px) {
-  /* tablet için stiller */
   .container {
     width: 768px;
     height: 1024px;
@@ -218,7 +214,6 @@
   }
 }
 @media (max-width: 767px) {
-  /* mobil için stiller */
   .container {
     display: flex;
     align-items: center;
@@ -349,7 +344,4 @@
   .heroMobileImage {
     display: block;
   }
-}
-@media (max-width: 374px) {
-  /* küçük mobil için stiller */
 }

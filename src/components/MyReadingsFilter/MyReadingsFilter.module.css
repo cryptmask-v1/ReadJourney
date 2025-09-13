@@ -54,7 +54,7 @@
   border: none;
   outline: none;
   color: white;
-  flex: 1; /* kalan alanı kaplar */
+  flex: 1;
 }
 
 .field::placeholder {
@@ -141,26 +141,25 @@
   background: #262626;
   list-style: none;
   padding: 0;
-  overflow-y: auto; /* ✅ Taşan öğeler için scroll */
-  max-height: 373px; /* ✅ Maksimum yükseklik */
+  overflow-y: auto;
+  max-height: 373px;
 }
 
-/* ✅ İnce ve temaya uygun scrollbar */
 .progressList::-webkit-scrollbar {
-  width: 4px; /* İnce yap */
+  width: 4px;
 }
 
 .progressList::-webkit-scrollbar-track {
-  background: #262626; /* Track arka planı */
+  background: #262626;
 }
 
 .progressList::-webkit-scrollbar-thumb {
-  background: #686868; /* Thumb rengi */
+  background: #686868;
   border-radius: 2px;
 }
 
 .progressList::-webkit-scrollbar-thumb:hover {
-  background: #f9f9f9; /* Hover rengi */
+  background: #f9f9f9;
 }
 
 .dateGroup {
@@ -325,7 +324,7 @@
 }
 
 .chartContainer {
-  position: relative; /* ✅ Relative position */
+  position: relative;
   width: 190px;
   height: 190px;
   margin: 0 auto 20px;
@@ -335,7 +334,7 @@
 }
 
 .centerText {
-  position: absolute; /* ✅ Absolute position */
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -392,7 +391,6 @@
   margin-right: 10px;
 }
 @media (max-width: 1023px) {
-  /* tablet için stiller */
   .container {
     width: 704px;
     height: 336px;
@@ -435,7 +433,6 @@
 }
 
 @media (max-width: 767px) {
-  /* mobil için stiller */
   .container {
     width: 335px;
     height: 451px;

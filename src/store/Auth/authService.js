@@ -7,7 +7,7 @@ export const registerUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await register(userData);
-      // set global header right after successful register
+
       if (response?.token) {
         axios.defaults.headers.common[
           "Authorization"
@@ -27,7 +27,7 @@ export const loginUser = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const response = await login(userData);
-      // set global header right after successful login
+
       if (response?.token) {
         axios.defaults.headers.common[
           "Authorization"
@@ -42,7 +42,6 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-// logoutUser stays (client cleanup in finally is fine)
 export const logoutUser = createAsyncThunk("auth/logout", async () => {
   try {
     await logout();
@@ -66,7 +65,6 @@ export const refreshUser = createAsyncThunk(
       const state = getState();
       const token = state.auth.token;
       const response = await refresh(token);
-      // set global header right after successful refresh
       if (response?.token) {
         axios.defaults.headers.common[
           "Authorization"

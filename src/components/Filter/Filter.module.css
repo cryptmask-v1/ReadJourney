@@ -58,7 +58,7 @@
   border: none;
   outline: none;
   color: white;
-  flex: 1; /* kalan alanı kaplar */
+  flex: 1;
 }
 .field::placeholder {
   font-weight: 500;
@@ -196,7 +196,6 @@
 }
 
 @media (max-width: 1023px) {
-  /* tablet için stiller */
   .container {
     display: flex;
     flex-direction: row;
@@ -212,7 +211,6 @@
   }
 }
 @media (max-width: 767px) {
-  /* mobil için stiller */
   .container {
     display: flex;
     flex-direction: column;

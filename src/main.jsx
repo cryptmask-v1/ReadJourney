@@ -31,7 +31,3 @@ createRoot(document.getElementById("root")).render(
     </BrowserRouter>
   </StrictMode>
 );
-
-// development helper (geçici): tarayıcı konsolundan store'a eriş
-
-// Bu satırı production'a geçmeden önce sil.

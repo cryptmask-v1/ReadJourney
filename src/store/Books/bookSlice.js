@@ -30,7 +30,7 @@ const bookSlice = createSlice({
       .addCase(fetchRecommendedBooks.fulfilled, (state, action) => {
         state.loading = false;
         state.recommendedBooks = action.payload.data || action.payload;
-        // Pagination varsa handle et
+
         if (action.payload.pagination) {
           state.pagination = {
             ...state.pagination,
@@ -76,7 +76,6 @@ const bookSlice = createSlice({
       })
       // Delete book from library
       .addCase(deleteBookFromLibrary.fulfilled, (state, action) => {
-        // ✅ userBooks'ten silinen kitabı kaldır
         state.userBooks = state.userBooks.filter(
           (book) => book._id !== action.payload.id
         );
@@ -106,12 +105,10 @@ const bookSlice = createSlice({
       })
       // Start reading
       .addCase(startReading.fulfilled, (state, action) => {
-        // API'den dönen yeni progress'i state'e ekle
         if (state.currentBook && action.payload) {
-          // Yeni progress entry'sini ekle
           state.currentBook.progress = [
             ...(state.currentBook.progress || []),
-            action.payload.progress, // API'den dönen progress
+            action.payload.progress,
           ];
         }
         state.loading = false;
@@ -126,12 +123,10 @@ const bookSlice = createSlice({
       })
       // Finish reading
       .addCase(finishReading.fulfilled, (state, action) => {
-        // API'den dönen yeni progress'i state'e ekle
         if (state.currentBook && action.payload) {
-          // Yeni progress entry'sini ekle
           state.currentBook.progress = [
             ...(state.currentBook.progress || []),
-            action.payload.progress, // API'den dönen progress
+            action.payload.progress,
           ];
         }
         state.loading = false;

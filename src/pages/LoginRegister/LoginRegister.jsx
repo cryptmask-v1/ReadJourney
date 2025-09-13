@@ -3,21 +3,21 @@ import { ErrorMessage, Field, Formik } from "formik";
 import { loginUser, registerUser } from "../../store/Auth/authService.js";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react"; // ✅ useState import
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import logo from "../../assets/Logo.png";
 import mobileLogo from "../../assets/mobileLogo.png";
 import hero from "../../assets/hero.png";
 import heroMobile from "../../assets/mobileHero.png";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"; // ✅ React icons import
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const LoginRegister = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const token = useSelector((state) => state.auth.token);
-  const [showPassword, setShowPassword] = useState(false); // ✅ Show password state
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (token) {
@@ -194,7 +194,6 @@ const LoginRegister = () => {
                         </button>
                         <Link className={styles.btnSectionLink} to="/login">
                           {" "}
-                          {/* ✅ Düzeltildi */}
                           Already have an account?
                         </Link>
                       </div>
@@ -274,7 +273,6 @@ const LoginRegister = () => {
                         </button>
                         <Link className={styles.btnSectionLink} to="/register">
                           {" "}
-                          {/* ✅ Düzeltildi */}
                           Don't have an account?
                         </Link>
                       </div>

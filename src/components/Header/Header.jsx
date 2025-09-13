@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"; // ✅ useState import
+import React, { useEffect, useState } from "react";
 import styles from "./Header.module.css";
 import logo from "../../assets/Logo.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,7 +7,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { logoutUser } from "../../store/Auth/authService";
 import { notify } from "../Notify/Notify";
 import mobileLogo from "../../assets/mobileLogo.png";
-import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai"; // ✅ React icons import
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -16,8 +16,8 @@ const Header = () => {
 
   const token = useSelector((state) => state.auth.token);
   const { user, isLoading, error } = useSelector((state) => state.users);
-  const [isOpen, setIsOpen] = useState(false); // ✅ Hamburger menu state
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth); // ✅ Screen width state
+  const [isOpen, setIsOpen] = useState(false);
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     if (token && !user) {
@@ -33,7 +33,7 @@ const Header = () => {
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
-  }, []); // ✅ Resize dinle
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -81,7 +81,6 @@ const Header = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.logo}>
-          {/* tablet için de mobille aynı logo */}
           {screenWidth < 1024 ? (
             <Link to="/recommended">
               <img src={mobileLogo} alt="Mobile Logo" />
