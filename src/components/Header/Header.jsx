@@ -83,9 +83,13 @@ const Header = () => {
         <div className={styles.logo}>
           {/* tablet için de mobille aynı logo */}
           {screenWidth < 1024 ? (
-            <img src={mobileLogo} alt="Mobile Logo" />
+            <Link to="/recommended">
+              <img src={mobileLogo} alt="Mobile Logo" />
+            </Link>
           ) : (
-            <img src={logo} alt="Logo" />
+            <Link to="/recommended">
+              <img src={logo} alt="Logo" />
+            </Link>
           )}
         </div>
         <nav className={styles.navLinks}>
