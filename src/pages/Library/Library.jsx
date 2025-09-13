@@ -6,7 +6,7 @@ import styles from "./Library.module.css";
 
 const Library = () => {
   return (
-    <div>
+    <div className={styles.container}>
       <Header />
       <div className={styles.libraryContent}>
         <MyLibraryFilter />

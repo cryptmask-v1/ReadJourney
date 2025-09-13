@@ -164,3 +164,72 @@
   height: 24px;
   color: #fff;
 }
+@media (max-width: 1023px) {
+  /* tablet için stiller */
+  .container {
+    display: flex;
+    flex-direction: row;
+    width: 704px;
+    height: 336px;
+    gap: 32px;
+  }
+  .bottomSection {
+    width: 313px;
+    height: 272px;
+    margin-top: 0px;
+  }
+  .inputContainer {
+    width: 295px;
+    height: 50px;
+    padding: 16px 16px 16px 14px;
+  }
+}
+
+@media (max-width: 767px) {
+  /* mobil için stiller */
+  .container {
+    display: flex;
+    flex-direction: column;
+    width: 335px;
+    height: 528px;
+    padding: 20px;
+  }
+  .bottomSection {
+    width: 295px;
+    height: 244px;
+    margin-top: 20px;
+  }
+  .inputContainer {
+    width: 295px;
+    height: 40px;
+    padding: 14px 31px 14px 14px;
+  }
+  .bottomTitle {
+    font-size: 18px;
+  }
+  .bookTitle {
+    font-size: 10px;
+  }
+  .linkContainer {
+    margin-top: 17px;
+  }
+  .bottomList {
+    margin-top: 17px;
+  }
+  .subtitle {
+    font-size: 12px;
+  }
+  .button {
+    width: 105px;
+    height: 38px;
+    font-size: 14px;
+  }
+
+  .title {
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 120%;
+    letter-spacing: -0.02em;
+    color: #f9f9f9;
+  }
+}

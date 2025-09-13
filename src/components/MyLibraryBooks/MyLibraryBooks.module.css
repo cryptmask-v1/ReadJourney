@@ -14,6 +14,7 @@
 .content {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 40px; /* Header ile box arası boşluk */
 }
 
@@ -238,4 +239,33 @@
   align-items: center;
   align-content: center;
   height: 186px;
+}
+
+@media (max-width: 1023px) {
+  /* tablet için stiller */
+  .container {
+    width: 704px;
+    height: 518px;
+    margin-top: 0px;
+  }
+}
+
+@media (max-width: 767px) {
+  /* mobil için stiller */
+  .container {
+    width: 335px;
+    height: 407px;
+    padding: 40px 20px;
+  }
+  .title {
+    font-size: 20px;
+  }
+  .form {
+    width: 120px;
+    height: 40px;
+  }
+  .bookImage {
+    width: 137px;
+    height: 208px;
+  }
 }

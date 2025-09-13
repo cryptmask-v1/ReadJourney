@@ -4,3 +4,22 @@
   justify-content: center;
   gap: 16px;
 }
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+@media (max-width: 1023px) {
+  /* tablet için stiller */
+  .libraryContent {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 767px) {
+  /* mobil için stiller */
+  .libraryContent {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
