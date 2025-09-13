@@ -5,8 +5,8 @@ import { addBookFromRecommendedToLibrary } from "../../store/Books/bookService";
 import { notify } from "../Notify/Notify";
 import { useNavigate } from "react-router-dom";
 import bookskeleton from "../../assets/bookskeletonlarge.png";
-import goodjob from "../../assets/goodjob.png";
 import { IoClose } from "react-icons/io5";
+import largeBook from "../../assets/largebook.png";
 
 const Modal = ({ book, isOpen, onClose, variant }) => {
   const dispatch = useDispatch();
@@ -97,22 +97,23 @@ const Modal = ({ book, isOpen, onClose, variant }) => {
       )}
       {variant === "goodjob" && (
         <div
-          className={styles.modalContent}
+          className={styles.modalContentFinish}
           onClick={(e) => e.stopPropagation()}
         >
           <div className={styles.closeBtn}>
             <IoClose className={styles.closeIcon} size={24} onClick={onClose} />
           </div>
 
-          <img src={goodjob} alt="Good Job!" />
-          <h2 className={styles.gjTitle}>Good Job!</h2>
+          <img
+            className={styles.modalImageFinish}
+            src={largeBook}
+            alt="Good Job!"
+          />
+          <h2 className={styles.gjTitle}>The book is read</h2>
           <p className={styles.gjText}>
-            Your book is now in <span>the library!</span> The joy knows no
-            bounds and now you can start your training
+            It was an <span>exciting journey</span> , where each page revealed
+            new horizons, and the characters became inseparable friends.
           </p>
-          <button className={styles.addButton} onClick={onClose}>
-            Close
-          </button>
         </div>
       )}
     </div>

@@ -25,6 +25,20 @@
   padding: 40px;
   box-sizing: border-box;
 }
+.modalContentFinish {
+  position: relative;
+  border: 1px solid rgba(104, 104, 104, 0.2);
+  border-radius: 12px;
+  width: 342px;
+  height: 308px;
+  background: #1f1f1f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px;
+  box-sizing: border-box;
+}
 .closeBtn {
   position: absolute;
   top: 16px;
@@ -109,6 +123,8 @@
   letter-spacing: -0.02em;
   text-align: center;
   color: #f9f9f9;
+  margin: 0px;
+  margin-top: 32px;
 }
 .gjText {
   font-weight: 500;
@@ -117,10 +133,16 @@
   letter-spacing: -0.02em;
   text-align: center;
   color: #686868;
+  margin: 0px;
+  margin-top: 14px;
 }
 
 .gjText span {
   color: #f9f9f9;
+}
+.modalImageFinish {
+  width: 68px;
+  height: 70px;
 }
 
 @media (max-width: 1023px) {

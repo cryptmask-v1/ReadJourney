@@ -4,6 +4,12 @@
   justify-content: center;
   gap: 16px;
 }
+.readingPage {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
 
 .readingContainer {
   border-radius: 30px;
@@ -49,4 +55,69 @@
   line-height: 100%;
   letter-spacing: -0.02em;
   color: #a1a1a1;
+}
+
+@media (max-width: 1023px) {
+  /* tablet için stiller */
+  .readingPage {
+    flex-direction: column;
+    align-items: center;
+  }
+  .container {
+    flex-direction: column;
+  }
+  .readingContainer {
+    width: 704px;
+    height: 518px;
+    margin: 0px;
+  }
+  .readingTitle {
+    font-size: 28px;
+  }
+  .bookImage {
+    width: 169px;
+    height: 256px;
+  }
+  .bookTitle {
+    font-size: 20px;
+    margin: 0px;
+    margin-top: 25px;
+  }
+  .bookAuthor {
+    font-size: 14px;
+    margin: 0px;
+    margin-bottom: 16px;
+  }
+  .start {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 767px) {
+  /* mobil için stiller */
+  .readingContainer {
+    width: 335px;
+    height: 471px;
+    padding: 40px 20px;
+  }
+  .readingTitle {
+    font-size: 20px;
+  }
+  .bookImage {
+    width: 137px;
+    height: 208px;
+    margin-top: 40px;
+  }
+  .bookTitle {
+    font-size: 14px;
+  }
+  .bookAuthor {
+    font-size: 10px;
+    margin-bottom: 20px;
+  }
+  .start {
+    width: 40px;
+    height: 40px;
+  }
 }

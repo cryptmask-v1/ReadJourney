@@ -12,7 +12,7 @@ const Reading = ({ book }) => {
   const bookData = state?.book || book;
 
   return (
-    <>
+    <div className={styles.readingPage}>
       <Header />
       <div className={styles.container}>
         <MyReadingsFilter book={bookData} />
@@ -23,15 +23,17 @@ const Reading = ({ book }) => {
             src={bookData?.imageUrl || bookskeleton}
             alt={bookData?.title}
           />
-          <h2 className={styles.bookTitle}>{bookData?.title}</h2>
-          <p className={styles.bookAuthor}>{bookData?.author}</p>
+          <div className={styles.bookInfo}>
+            <h2 className={styles.bookTitle}>{bookData?.title}</h2>
+            <p className={styles.bookAuthor}>{bookData?.author}</p>
+          </div>
 
           <div>
             <img src={start} alt="" />
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
